@@ -1,15 +1,11 @@
 import { ScrollView } from "react-native";
 
-import { PostCliente } from "./src/api/Usuario/PostCliente";
-import { PostEmpresa } from "./src/api/Usuario/PostEmpresa";
-import { AuthenticationCliente } from "./src/api/Usuario/Authentication";
+import { Login } from "./src/screens/Login";
 
 export default function App() {
   return (
     <ScrollView>
-      <PostCliente />
-      <PostEmpresa />
-      <AuthenticationCliente />
+      <Login />
     </ScrollView>
   );
 }

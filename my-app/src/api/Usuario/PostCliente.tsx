@@ -11,8 +11,8 @@ export function PostCliente() {
   const [nome, setNome] = useState<string | null>("");
   const [email, setEmail] = useState<string | null>("");
   const [senha, setSenha] = useState<string | null>("");
-  const [telefone, setTelefone] = useState<string | null>("");
-  const [nomeContato, setNomeContato] = useState<string | null>("");
+  const [telefone, setTelefone] = useState<string | null>("Telefone");
+  const [nomeContato, setNomeContato] = useState<string | null>("Nome do Contato");
   const [emailContato, setEmailContato] = useState<string | null>("");
 
   const [message, setMessage] = useState<string | null>("");
@@ -29,7 +29,7 @@ export function PostCliente() {
       setMessage("Preencha todos os parâmetros.");
     }
 
-    fetch("http://192.168.1.3:3333/usuario/cliente", {
+    fetch("http://10.5.17.9:3333/usuario/cliente", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +100,6 @@ export function PostCliente() {
           placeholderTextColor="#6B6B6B"
           value={telefone}
           onChangeText={setTelefone}
-          defaultValue="Telefone"
         />
 
         <TextInput
@@ -109,7 +108,6 @@ export function PostCliente() {
           placeholderTextColor="#6B6B6B"
           value={nomeContato}
           onChangeText={setNomeContato}
-          defaultValue="Nome do Contato"
         />
 
         <TextInput
@@ -118,7 +116,6 @@ export function PostCliente() {
           placeholderTextColor="#6B6B6B"
           value={emailContato}
           onChangeText={setEmailContato}
-          defaultValue="E-mail para Contato"
         />
 
         <TouchableOpacity style={styles.button} onPress={handleClick}>

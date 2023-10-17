@@ -12,26 +12,26 @@ export function PostEmpresa() {
   const [email, setEmail] = useState<string | null>("");
   const [senha, setSenha] = useState<string | null>("");
 
-  const [telefone, setTelefone] = useState<string | null>("");
-  const [nomeContato, setNomeContato] = useState<string | null>("");
+  const [telefone, setTelefone] = useState<string | null>("Telefone");
+  const [nomeContato, setNomeContato] = useState<string | null>("Nome do Contato");
   const [emailContato, setEmailContato] = useState<string | null>("");
 
-  const [cep, setCep] = useState<string | null>("");
-  const [rua, setRua] = useState<string | null>("");
-  const [num, setNum] = useState<string | null>("");
-  const [cidade, setCidade] = useState<string | null>("");
-  const [estado, setEstado] = useState<string | null>("");
+  const [cep, setCep] = useState<string | null>("00000-000");
+  const [rua, setRua] = useState<string | null>("Rua");
+  const [num, setNum] = useState<string | null>("00");
+  const [cidade, setCidade] = useState<string | null>("Cidade");
+  const [estado, setEstado] = useState<string | null>("Estado");
 
-  const [cnpj, setCnpj] = useState<string | null>("");
-  const [descricao, setDescricao] = useState<string | null>("");
-  const [linkSite, setLinkSite] = useState<string | null>("");
-  const [imgPerfil, setImgPerfil] = useState<string | null>("");
+  const [cnpj, setCnpj] = useState<string | null>("00.000.000/0001-00");
+  const [descricao, setDescricao] = useState<string | null>("Descrição");
+  const [linkSite, setLinkSite] = useState<string | null>("https://www.google.com.br/");
+  const [imgPerfil, setImgPerfil] = useState<string | null>("https://avatars.githubusercontent.com/u/112782437?v=4");
 
-  const [banco, setBanco] = useState<string | null>("");
-  const [agencia, setAgencia] = useState<string | null>("");
-  const [digito, setDigito] = useState<string | null>("");
-  const [tipoConta, setTipoConta] = useState<string | null>("");
-  const [conta, setConta] = useState<string | null>("");
+  const [banco, setBanco] = useState<string | null>("Banco");
+  const [agencia, setAgencia] = useState<string | null>("Agencia");
+  const [digito, setDigito] = useState<string | null>("Digito");
+  const [tipoConta, setTipoConta] = useState<string | null>("Tipo da Conta");
+  const [conta, setConta] = useState<string | null>("Conta");
 
   const [message, setMessage] = useState<string | null>("");
 
@@ -63,7 +63,7 @@ export function PostEmpresa() {
     }
 
 
-    fetch("http://192.168.1.3:3333/usuario/cliente", {
+    fetch("http://10.5.17.9:3333/usuario/empresa", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
@@ -83,6 +83,7 @@ export function PostEmpresa() {
           endereco: {
             cep,
             rua,
+            num,
             cidade,
             estado
           },
@@ -103,10 +104,10 @@ export function PostEmpresa() {
       }),
     })
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((json) => {
+        console.log(json);
         if (json.mensagem) {
           setMessage(json.mensagem);
         } else if (json.erro) {
@@ -153,7 +154,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={telefone}
           onChangeText={setTelefone}
-          defaultValue="Telefone"
         />
 
         <TextInput
@@ -162,7 +162,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={nomeContato}
           onChangeText={setNomeContato}
-          defaultValue="Nome do Contato"
         />
 
         <TextInput
@@ -171,7 +170,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={emailContato}
           onChangeText={setEmailContato}
-          defaultValue="E-mail para Contato"
         />
 
         <TextInput
@@ -180,7 +178,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={cep}
           onChangeText={setCep}
-          defaultValue="CEP"
         />
 
         <TextInput
@@ -189,7 +186,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={rua}
           onChangeText={setRua}
-          defaultValue="Rua"
         />
 
         <TextInput
@@ -198,7 +194,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={num}
           onChangeText={setNum}
-          defaultValue="Número"
         />
 
         <TextInput
@@ -207,7 +202,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={cidade}
           onChangeText={setCidade}
-          defaultValue="Cidade"
         />
 
         <TextInput
@@ -216,7 +210,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={estado}
           onChangeText={setEstado}
-          defaultValue="Estado"
         />
 
         <TextInput
@@ -225,7 +218,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={cnpj}
           onChangeText={setCnpj}
-          defaultValue="CNPJ"
         />
 
         <TextInput
@@ -234,7 +226,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={descricao}
           onChangeText={setDescricao}
-          defaultValue="Descrição"
         />
 
         <TextInput
@@ -243,7 +234,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={linkSite}
           onChangeText={setLinkSite}
-          defaultValue="Link do Site"
         />
 
         <TextInput
@@ -252,7 +242,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={imgPerfil}
           onChangeText={setImgPerfil}
-          defaultValue="Imagem de Perfil"
         />
 
         <TextInput
@@ -261,7 +250,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={banco}
           onChangeText={setBanco}
-          defaultValue="Banco"
         />
 
         <TextInput
@@ -270,7 +258,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={agencia}
           onChangeText={setAgencia}
-          defaultValue="Agência"
         />
 
         <TextInput
@@ -279,7 +266,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={digito}
           onChangeText={setDigito}
-          defaultValue="Dígito"
         />
 
         <TextInput
@@ -288,7 +274,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={tipoConta}
           onChangeText={setTipoConta}
-          defaultValue="Tipo de Conta"
         />
 
         <TextInput
@@ -297,7 +282,6 @@ export function PostEmpresa() {
           placeholderTextColor="#6B6B6B"
           value={conta}
           onChangeText={setConta}
-          defaultValue="Conta"
         />
 
         <TouchableOpacity style={styles.button} onPress={handleClick}>
@@ -305,6 +289,7 @@ export function PostEmpresa() {
         </TouchableOpacity>
 
         <Text style={styles.message}>{message}</Text>
+        
       </View>
     </>
   );

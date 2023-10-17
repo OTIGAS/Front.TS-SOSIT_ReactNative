@@ -18,7 +18,7 @@ export function AuthenticationCliente() {
       setMessage("Preencha todos os parâmetros.");
     }
 
-    fetch("http://192.168.1.3:3333/usuario/autenticar", {
+    fetch("http://10.5.17.9:3333/usuario/autenticar", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export function AuthenticationCliente() {
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          placeholderTextColor="#6B6B6B"
+          placeholderTextColor="#B9B9B9"
           value={senha}
           onChangeText={setSenha}
         />
