@@ -6,7 +6,7 @@ const types = {
     message: 'Email inválido',
   },
   password: {
-    //regex: /^.{5,}$/,
+    regex: /^.{3,}$/,
     message: 'Senha inválida (deve conter no minimo 5 caracteres)',
   },
   cep: {

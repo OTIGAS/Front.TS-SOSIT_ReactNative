@@ -1,45 +1,41 @@
-import React, { createContext, useContext, PropsWithChildren } from "react";
-import useFetch from "./../hooks/useFetch";
+import { createContext, useState, PropsWithChildren } from "react";
 
-type User = {
-  id: number;
-  nome: string;
-  idade: number;
-  aulas: number;
-  cursos: number;
-  preferencias: {
-    playback: number;
-    volume: number;
-    qualidade: "baixa" | "media" | "alta";
-  };
-};
+import { Usuario } from "../interfaces/usuario";
 
-type IUserContext = {
-  data: User | null;
+export type UserContext = {
+  data: Usuario | null;
+  
   loading: boolean;
-};
+}
 
-const UserContext = createContext<IUserContext | null>(null);
+export const UserContext = createContext<UserContext | null>(null);
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) throw new Error("useContext deve estar dentro do Provider");
-  return context;
-};
+export const UserStorage = ({ children }: PropsWithChildren) => {
+  const [data, setData] = useState()
 
-export const UserContextProvider = ({ children }: PropsWithChildren) => {
-  const { data, loading } = useFetch<User>(
-    "https://data.origamid.dev/usuarios/1"
-  );
+  const [nome, setNome] = useState<string | null>(null)
+  const [tipo, setTipo] = useState<string | null>(null)
+
+  const [idUsuario, setIdUsuario] = useState<number | null>(null)
+  const [idContato, setIdContato] = useState<number | null>(null)
+  const [idEndereco, setIdEndereco] = useState<number | null>(null)
+  const [idInformacoes, setIdInformacoes] = useState<number | null>(null)
+  const [idBancarios, setIdBancarios] = useState<number | null>(null)
 
   return (
-    <UserContext.Provider
+    <UserContext.Provider 
       value={{
-        data,
-        loading,
+        nome, setNome,
+        tipo, setTipo,
+
+        idUsuario, setIdUsuario,
+        idContato, setIdContato,
+        idEndereco, setIdEndereco,
+        idInformacoes, setIdInformacoes,
+        idBancarios, setIdBancarios,
       }}
     >
       {children}
     </UserContext.Provider>
-  );
-};
+  )
+}

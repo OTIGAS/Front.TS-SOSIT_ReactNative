@@ -1,11 +1,15 @@
-import { ScrollView } from "react-native";
+import { View } from "react-native";
 
 import { Login } from "./src/screens/Login";
 
+import { UserStorage } from "./src/context/UserContext";
+
 export default function App() {
   return (
-    <ScrollView>
-      <Login />
-    </ScrollView>
+    <UserStorage>
+      <View>
+        <Login />
+      </View>
+    </UserStorage>
   );
 }

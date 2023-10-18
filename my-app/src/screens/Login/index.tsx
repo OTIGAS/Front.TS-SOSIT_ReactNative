@@ -4,19 +4,12 @@ import { View } from "react-native";
 import { styles } from "./styles";
 
 import useForm from "../../hooks/useForm";
-import useFetch from "../../hooks/useFetch";
 
 import { Input } from "./../../components/Input";
 import { Button } from "./../../components/Button";
 import { Message } from "../../components/Message";
 
 import { Authentication } from "../../api";
-
-type IResponse = {
-  tipo: "cliente" | "empresa";
-  token: string;
-  mensagem: string;
-}
 
 export function Login() {
   const email = useForm("email")
@@ -34,9 +27,10 @@ export function Login() {
         senha: senha.value 
       });
   
-      const response = useFetch<IResponse>(url, options);
+      const response = await fetch(url, options)
+      const json = await response.json();
 
-      console.log(response)
+      console.log(json)
   
       // if (json.mensagem) {
       //   setTipo(json.tipo);
