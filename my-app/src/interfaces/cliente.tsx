@@ -1,21 +1,11 @@
-export type Cliente = {
-  id_usuario?: number;
+export interface GetCliente {
+  id_usuario: number;
   nome: string;
   tipo: string;
-  email: string;
-  contato: {
-    email_contato: string;
-    telefone: string;
-    nome_contato: string;
-  }
-}
-
-export type GetCliente = {
-  id_usuario?: number;
-  nome: string;
-  tipo: string;
-  email: string;
   id_contato: number;
+  email_contato: string;
+  telefone: string;
+  nome_contato: string;
 }
 
 export type PostCliente = {

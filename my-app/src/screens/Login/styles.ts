@@ -7,11 +7,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: "#FFF",
+    backgroundColor: "#2563eb",
     padding: 24,
-  },
-  label: {},
-  input: {},
-  message: {},
-  button: {},
+  }
 });

@@ -1,4 +1,4 @@
-export const API_URL = "http://192.168.1.10:3333"
+export const API_URL = "http://10.5.17.9:3333"
 
 type IAuthentication ={
   email: string;
@@ -15,6 +15,18 @@ export function Authentication({email, senha}: IAuthentication) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ data })
+    }
+  }
+}
+
+export function Profile(token: string) {
+  return {
+    url: API_URL + "/usuario/listar-meu-perfil",
+    options: {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     }
   }
 }

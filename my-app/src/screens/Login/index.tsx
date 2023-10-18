@@ -1,53 +1,33 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { View } from "react-native";
 import { styles } from "./styles";
 
 import useForm from "../../hooks/useForm";
 
+import { UserContext } from "../../context/UserContext";
+
 import { Input } from "./../../components/Input";
 import { Button } from "./../../components/Button";
 import { Message } from "../../components/Message";
-
-import { Authentication } from "../../api";
+import { Header } from "../../components/Header";
 
 export function Login() {
-  const email = useForm("email")
-  const senha = useForm("password")
+  const email = useForm("email");
+  const senha = useForm("password");
 
-  const [tipo, setTipo] = useState<string | null>("");
-  const [token, setToken] = useState<string | null>("");
-
-  const [message, setMessage] = useState<string | null>("");
+  const { data, userLogin, message } = useContext(UserContext);
 
   async function handlePress() {
     if (email.validate() && senha.validate()) {
-      const { url, options } = Authentication({ 
-        email: email.value, 
-        senha: senha.value 
-      });
-  
-      const response = await fetch(url, options)
-      const json = await response.json();
-
-      console.log(json)
-  
-      // if (json.mensagem) {
-      //   setTipo(json.tipo);
-      //   setToken(json.token);
-      //   setMessage(json.mensagem);
-      // } else if (json.erro) {
-      //   setMessage(json.erro);
-      // } else {
-      //   setMessage("Falha na requisição.");
-      // }
-    } else {
-      setMessage("Preencha todos os campos.");
-    }
+      userLogin(email.value, senha.value)
+      console.log(data)
+    } 
   }
 
   return (
     <>
+      <Header />
       <View style={styles.container}>
         <Input
           keyboardType="email-address"
