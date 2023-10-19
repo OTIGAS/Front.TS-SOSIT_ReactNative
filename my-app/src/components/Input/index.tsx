@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { styles } from "./styles";
+import { MyStyles } from "./styles";
 
 import { Text, TextInput } from "react-native";
 
@@ -29,6 +29,7 @@ type InputProps = {
 };
 
 export const Input = (props: InputProps) => {
+  const styles = MyStyles();
   return (
     <>
       <TextInput

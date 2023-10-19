@@ -1,13 +1,31 @@
+import { useContext } from "react";
 import { StyleSheet } from "react-native";
+import { ThemaContext } from "../../context/ThemeContext";
+import { defaultThemeLight, defaultThemeDark } from "../../themes/default";
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+export const MyStyles = () => {
+  const { theme } = useContext(ThemaContext);
 
-    justifyContent: "center",
-    alignItems: "center",
+  const defaultTheme = theme === "light" ? defaultThemeLight : defaultThemeDark;
 
-    backgroundColor: "#2563eb",
-    padding: 24,
-  }
-});
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+
+      justifyContent: "space-around",
+      alignItems: "center",
+
+      backgroundColor: defaultTheme["color-1"],
+      padding: 24,
+    },
+    sub_container: {
+      width: "100%",
+    },
+    image: {
+      width: "100%",
+      height: "52%",
+    },
+  });
+};
+
+export default MyStyles;
