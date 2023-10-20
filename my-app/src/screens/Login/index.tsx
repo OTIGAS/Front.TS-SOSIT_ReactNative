@@ -12,8 +12,6 @@ import { Button } from "./../../components/Button";
 import { Message } from "../../components/Message";
 import { Header } from "../../components/Header";
 
-
-
 export function Login({navigation}) {
   const email = useForm("email");
   const senha = useForm("password");
