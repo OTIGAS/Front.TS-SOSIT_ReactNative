@@ -41,16 +41,9 @@ export const Header = (props: HeaderProps) => {
         }
       </TouchableOpacity>
       <Text style={styles.title}>{props.screen && props.screen}</Text>
-      {
-        props.screen === 'Login' ?
-        <TouchableOpacity style={styles.button} onPress={handlePressCreateAccount}>
-          <Image source={require('./../../assets/add.png')}/>
-        </TouchableOpacity>
-        :
-        <TouchableOpacity style={styles.button} onPress={handlePressLogout}>
-          <Image source={require('./../../assets/logout.png')}/>
-        </TouchableOpacity>
-      }
+      <TouchableOpacity style={styles.button} onPress={handlePressCreateAccount}>
+        <Text>PT-BR</Text>
+      </TouchableOpacity>
     </View>
   );
 };

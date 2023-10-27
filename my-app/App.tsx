@@ -4,9 +4,9 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import { Login } from "./src/screens/Login";
-import { HomeCliente } from "./src/screens/HomeCliente";
-import { ProfileCliente } from "./src/screens/ProfileCliente";
-import { HistoricCliente } from "./src/screens/HistoricCliente";
+import { Perfil } from "./src/screens/Cliente/Perfil";
+import { Pesquisa } from "./src/screens/Cliente/Pesquisa";
+import { Historico } from "./src/screens/Cliente/Historico";
 
 import { ThemaStorage } from "./src/context/ThemeContext";
 import { UserStorage } from "./src/context/UserContext";
@@ -22,9 +22,9 @@ export default function App() {
           <ThemaStorage>
             <Stack.Navigator screenOptions={{ headerShown:false}}>
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="HomeCliente" component={HomeCliente} />
-              <Stack.Screen name="ProfileCliente" component={ProfileCliente} />
-              <Stack.Screen name="HistoricCliente" component={HistoricCliente} />
+              <Stack.Screen name="PesquisaCliente" component={Pesquisa} />
+              <Stack.Screen name="PerfilCliente" component={Perfil} />
+              <Stack.Screen name="HistoricoCliente" component={Historico} />
             </Stack.Navigator>
           </ThemaStorage>    
         </UserStorage>

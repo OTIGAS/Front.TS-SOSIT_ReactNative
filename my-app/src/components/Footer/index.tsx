@@ -11,15 +11,15 @@ export const Footer = (props: FooterProps) => {
   const styles = MyStyles();
 
   function handleHistoric() {
-    props.navigation.navigate('HistoricCliente', {name: 'HistoricCliente'})
+    props.navigation.navigate('HistoricoCliente', {name: 'HistoricoCliente'})
   }
 
   function handleSearch() {
-    props.navigation.navigate('HomeCliente', {name: 'HomeCliente'})
+    props.navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
   }
 
   function handleProfile() {
-    props.navigation.navigate('ProfileCliente', {name: 'ProfileCliente'})
+    props.navigation.navigate('PerfilCliente', {name: 'PerfilCliente'})
   }
 
   return (
@@ -32,7 +32,7 @@ export const Footer = (props: FooterProps) => {
           />
         </TouchableOpacity>
         {props.type === "cliente" ? (
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSearch}>
             <Image
               style={styles.images}
               source={require("./../../assets/search.png")}

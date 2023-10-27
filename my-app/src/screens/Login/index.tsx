@@ -7,8 +7,8 @@ import useForm from "../../hooks/useForm";
 
 import { UserContext } from "../../context/UserContext";
 
-import { Input } from "./../../components/Input";
-import { Button } from "./../../components/Button";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
 import { Message } from "../../components/Message";
 import { Header } from "../../components/Header";
 
@@ -25,7 +25,7 @@ export function Login({navigation}) {
     //     navigation.navigate('Home', {name: 'Home'})
     //   }
     // } 
-    navigation.navigate('HomeCliente', {name: 'HomeCliente'})
+    navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
   }
 
   const styles = MyStyles();

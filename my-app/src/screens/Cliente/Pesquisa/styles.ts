@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { StyleSheet } from "react-native";
-import { ThemaContext } from "../../context/ThemeContext";
-import { defaultThemeLight, defaultThemeDark } from "../../themes/default";
+import { ThemaContext } from "../../../context/ThemeContext";
+import { defaultThemeLight, defaultThemeDark } from "../../../themes/default";
 
 export const MyStyles = () => {
   const { theme } = useContext(ThemaContext);

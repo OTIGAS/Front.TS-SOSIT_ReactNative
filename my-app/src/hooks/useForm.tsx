@@ -13,6 +13,10 @@ const types = {
     regex: /^\d{5}-?\d{3}$/,
     message: 'Cep inválido',
   },
+  fone: {
+    regex: /^\(?\d{2}\)?[\s-]?[\s9]?\d{4}-?\d{4}$/,
+    message: 'Telefone inválido'
+  }
 };
 
 const useForm = (type: string | null) => {

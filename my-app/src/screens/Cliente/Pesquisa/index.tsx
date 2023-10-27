@@ -1,16 +1,23 @@
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Alert,
+} from "react-native";
+import { useState } from "react";
 import { MyStyles } from "./styles";
 
 import SelectDropdown from "react-native-select-dropdown";
 
-import { Input } from "../../components/Input";
-import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
-import { SearchCalendar } from "../../components/SearchCalendar";
-import { useState } from "react";
-import useForm from "../../hooks/useForm";
+import { Input } from "../../../components/Input";
+import { Header } from "../../../components/Header";
+import { Footer } from "../../../components/Footer";
+import { SearchCalendar } from "../../../components/SearchCalendar";
+import useForm from "../../../hooks/useForm";
 
-export function HomeCliente({navigation}) {
+export function Pesquisa({ navigation }) {
   const styles = MyStyles();
 
   const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(
@@ -37,7 +44,7 @@ export function HomeCliente({navigation}) {
   };
 
   async function handlePress() {
-    console.log("Alo")
+    console.log("Alo");
   }
 
   return (
@@ -69,7 +76,7 @@ export function HomeCliente({navigation}) {
           onChange={search.setValue}
         />
         <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Image source={require('./../../assets/manage_search.png')}/>
+          <Image source={require("./../../../assets/manage_search.png")} />
         </TouchableOpacity>
       </View>
 
@@ -88,7 +95,7 @@ export function HomeCliente({navigation}) {
         <SearchCalendar typeSearch={typeSearch} />
       </ScrollView>
 
-      <Footer type="cliente" navigation={navigation}/>
+      <Footer type="cliente" navigation={navigation} />
     </View>
   );
 }
