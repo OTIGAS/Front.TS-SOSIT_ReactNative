@@ -10,13 +10,12 @@ export const MyStyles = () => {
 
   return StyleSheet.create({
     input: {
+      flexGrow: 1,
       height: 56,
-      width: "100%",
   
       borderRadius: 5,
       borderColor: defaultTheme['color-9'],
       borderWidth: 1,
-
 
       color: defaultTheme['color-7'],
   

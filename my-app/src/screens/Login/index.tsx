@@ -19,12 +19,13 @@ export function Login({navigation}) {
   const { data, userLogin, message, erro } = useContext(UserContext);
 
   async function handlePress() {
-    if (email.validate() && senha.validate()) {
-      userLogin(email.value, senha.value)
-      if(!erro) {
-        navigation.navigate('Home', {name: 'Home'})
-      }
-    } 
+    // if (email.validate() && senha.validate()) {
+    //   userLogin(email.value, senha.value)
+    //   if(!erro) {
+    //     navigation.navigate('Home', {name: 'Home'})
+    //   }
+    // } 
+    navigation.navigate('HomeCliente', {name: 'HomeCliente'})
   }
 
   const styles = MyStyles();
