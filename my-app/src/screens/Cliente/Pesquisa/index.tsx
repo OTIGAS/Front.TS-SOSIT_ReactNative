@@ -17,7 +17,7 @@ import { Footer } from "../../../components/Footer";
 import { SearchCalendar } from "../../../components/SearchCalendar";
 import useForm from "../../../hooks/useForm";
 
-export function Pesquisa({ navigation }) {
+export function PesquisaC({ navigation }) {
   const styles = MyStyles();
 
   const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(
@@ -25,26 +25,8 @@ export function Pesquisa({ navigation }) {
   );
   const search = useForm("");
 
-  const openTwoButtonAlert = () => {
-    Alert.alert(
-      "Hey There!",
-      "Two button alert dialog",
-      [
-        { text: "Yes", onPress: () => console.log("Yes button clicked") },
-        {
-          text: "No",
-          onPress: () => console.log("No button clicked"),
-          style: "cancel",
-        },
-      ],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
-  async function handlePress() {
-    console.log("Alo");
+  async function handlePressCalendar() {
+    navigation.navigate('AgendaEmpresaCliente', {name: 'AgendaEmpresaCliente'})
   }
 
   return (
@@ -75,13 +57,13 @@ export function Pesquisa({ navigation }) {
           onBlur={search.onBlur}
           onChange={search.setValue}
         />
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <TouchableOpacity style={styles.button}>
           <Image source={require("./../../../assets/manage_search.png")} />
         </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.container}>
-        <SearchCalendar typeSearch={typeSearch} />
+        <SearchCalendar typeSearch={typeSearch} onPress={handlePressCalendar}/>
         <SearchCalendar typeSearch={typeSearch} />
         <SearchCalendar typeSearch={typeSearch} />
         <SearchCalendar typeSearch={typeSearch} />

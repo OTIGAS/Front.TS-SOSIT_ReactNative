@@ -9,6 +9,10 @@ const types = {
     regex: /^.{3,}$/,
     message: 'Senha inválida (deve conter no minimo 5 caracteres)',
   },
+  cnpj: {
+    regex: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/,
+    message: 'CNPJ inválida (deve conter os pontos (.) barra (/) e traço (-)'
+  },
   cep: {
     regex: /^\d{5}-?\d{3}$/,
     message: 'Cep inválido',

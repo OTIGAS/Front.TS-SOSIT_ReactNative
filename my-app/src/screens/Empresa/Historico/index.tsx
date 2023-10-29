@@ -5,7 +5,7 @@ import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import { Commitment } from "../../../components/Commitment";
 
-export function HistoricoC({navigation}) {
+export function HistoricoE({navigation}) {
   const styles = MyStyles();
 
   return (
@@ -31,7 +31,7 @@ export function HistoricoC({navigation}) {
         </TouchableOpacity>
       <Footer 
         navigation={navigation} 
-        type="cliente"
+        type="empresa"
       />
     </View>
   );

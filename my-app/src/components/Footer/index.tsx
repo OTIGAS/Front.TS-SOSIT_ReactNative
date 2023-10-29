@@ -10,60 +10,75 @@ type FooterProps = {
 export const Footer = (props: FooterProps) => {
   const styles = MyStyles();
 
-  function handleHistoric() {
+  function handleClienteHistoric() {
     props.navigation.navigate('HistoricoCliente', {name: 'HistoricoCliente'})
   }
 
-  function handleSearch() {
+  function handleClienteSearch() {
     props.navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
   }
 
-  function handleProfile() {
+  function handleClienteProfile() {
     props.navigation.navigate('PerfilCliente', {name: 'PerfilCliente'})
   }
 
+  function handleEmpresaHistoric() {
+    props.navigation.navigate('HistoricoEmpresa', {name: 'HistoricoEmpresa'})
+  }
+
+  function handleEmpresaSearch() {
+    props.navigation.navigate('PesquisaEmpresa', {name: 'PesquisaEmpresa'})
+  }
+
+  function handleEmpresaProfile() {
+    props.navigation.navigate('PerfilEmpresa', {name: 'PerfilEmpresa'})
+  }
+
   return (
-    <>
+    props.type === "cliente" ? (
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.button} onPress={handleHistoric}>
+        <TouchableOpacity style={styles.button} onPress={handleClienteHistoric}>
           <Image
             style={styles.images}
             source={require("./../../assets/historic.png")}
           />
         </TouchableOpacity>
-        {props.type === "cliente" ? (
-          <TouchableOpacity style={styles.button} onPress={handleSearch}>
-            <Image
-              style={styles.images}
-              source={require("./../../assets/search.png")}
-            />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.button}>
-            <Image
-              style={styles.images}
-              source={require("./../../assets/edit_calendar.png")}
-            />
-          </TouchableOpacity>
-        )}
-        {
-          props.type === "cliente" ? (
-            <TouchableOpacity style={styles.button} onPress={handleProfile}>
-              <Image
-                style={styles.images}
-                source={require("./../../assets/person.png")}
-              />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity style={styles.button} onPress={handleProfile}>
-              <Image
-                style={styles.images}
-                source={require("./../../assets/company.png")}
-              />
-            </TouchableOpacity>
-          )
-        }
+        <TouchableOpacity style={styles.button} onPress={handleClienteSearch}>
+          <Image
+            style={styles.images}
+            source={require("./../../assets/search.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleClienteProfile}>
+          <Image
+            style={styles.images}
+            source={require("./../../assets/person.png")}
+          />
+        </TouchableOpacity>
       </View>
-    </>
+    )
+    :
+    (
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.button} onPress={handleEmpresaHistoric}>
+          <Image
+            style={styles.images}
+            source={require("./../../assets/historic.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleEmpresaSearch}>
+          <Image
+            style={styles.images}
+            source={require("./../../assets/edit_calendar.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleEmpresaProfile}>
+          <Image
+            style={styles.images}
+            source={require("./../../assets/company.png")}
+          />
+        </TouchableOpacity>
+      </View>
+    )
   );
 };

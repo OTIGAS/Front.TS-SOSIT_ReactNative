@@ -25,6 +25,10 @@ export const MyStyles = () => {
       width: "100%",
       height: "52%",
     },
+    label: {
+      marginTop: 10,
+      textAlign: "center"
+    }
   });
 };
 

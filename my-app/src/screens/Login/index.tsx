@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { View, Image } from "react-native";
+import { View, Image, Alert, Text } from "react-native";
 import { MyStyles } from "./styles";
 
 import useForm from "../../hooks/useForm";
@@ -17,6 +17,34 @@ export function Login({navigation}) {
   const senha = useForm("password");
 
   const { data, userLogin, message, erro } = useContext(UserContext);
+
+  const openRegisterAlert = () => {
+    Alert.alert(
+      "Crie uma conta.",
+      "Escolha a forma de cadastro",
+      [
+        { text: "Cliente", onPress: () => navigation.navigate('CadastroCliente', {name: 'CadastroCliente'}) },
+        { text: "Empresa", onPress: () => navigation.navigate('CadastroEmpresa', {name: 'CadastroEmpresa'}) },
+        { text: "Cancelar", onPress: () => console.log("Cancelar") },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  const openForgotMyPasswordAlert = () => {
+    Alert.alert(
+      "Ligue para o numero :",
+      "(19) 9 9527-7858",
+      [
+        { text: "Ok", onPress: () => console.log("Esqueci minha senha") },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
 
   async function handlePress() {
     // if (email.validate() && senha.validate()) {
@@ -61,6 +89,13 @@ export function Login({navigation}) {
           />
 
           <Button onPress={handlePress}>Enviar</Button>
+
+          <Text style={styles.label} onPress={openRegisterAlert}>
+            Não tem uma conta? Cadastre-se
+          </Text>
+          <Text style={styles.label} onPress={openForgotMyPasswordAlert}>
+            Esqueci minha senha
+          </Text>
         </View>
         <Message>{message}</Message>
       </View>

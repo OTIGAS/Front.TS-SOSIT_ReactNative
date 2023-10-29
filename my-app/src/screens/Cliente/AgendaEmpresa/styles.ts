@@ -9,26 +9,13 @@ export const MyStyles = () => {
   const defaultTheme = theme === "light" ? defaultThemeLight : defaultThemeDark;
 
   return StyleSheet.create({
-    historico: {
+    mainContainer: {
       flex: 1,
-      
-      backgroundColor: defaultTheme["color-1"],
-    },
-    buttonCancel: {
-      height: 50,
 
-      marginTop: 5,
-      marginBottom: 5,
-
-      marginLeft: 30,
-      marginRight: 30,
-
-      borderRadius: 5,
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: defaultTheme["red-300"],
-    },
+      padding: 30
+    }
   });
+    
 };
 
 export default MyStyles;

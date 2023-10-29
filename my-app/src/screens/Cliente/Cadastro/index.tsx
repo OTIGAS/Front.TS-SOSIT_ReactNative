@@ -7,21 +7,21 @@ import { Input } from "../../../components/Input";
 
 import useForm from "../../../hooks/useForm";
 
-export function PerfilC({ navigation }) {
+export function CadastroC({ navigation }) {
   const styles = MyStyles();
 
   const nome = useForm("");
   const email = useForm("email");
+  const senha = useForm("password");
 
   const emailContato = useForm("email");
   const telefoneContato = useForm("fone");
 
   return (
     <>
-      <Header screen="Perfil" />
+      <Header screen="Cadastro" />
       <ScrollView style={styles.perfil}>
         <Text style={styles.title}>Usuário</Text>
-        <Text>Nome :</Text>
         <Input
           keyboardType="default"
           placeholder="Nome"
@@ -31,7 +31,6 @@ export function PerfilC({ navigation }) {
           onBlur={nome.onBlur}
           onChange={nome.setValue}
         />
-        <Text>E-mail :</Text>
         <Input
           keyboardType="email-address"
           placeholder="E-mail"
@@ -41,8 +40,16 @@ export function PerfilC({ navigation }) {
           onBlur={email.onBlur}
           onChange={email.setValue}
         />
+        <Input
+          keyboardType="default"
+          placeholder="Senha"
+          placeholderTextColor="#B9B9B9"
+          value={senha.value}
+          error={senha.error}
+          onBlur={senha.onBlur}
+          onChange={senha.setValue}
+        />
         <Text style={styles.title}>Contato</Text>
-        <Text>E-mail Contato :</Text>
         <Input
           keyboardType="email-address"
           placeholder="E-mail Contato"
@@ -52,7 +59,6 @@ export function PerfilC({ navigation }) {
           onBlur={emailContato.onBlur}
           onChange={emailContato.setValue}
         />
-        <Text>Telefone Contato :</Text>
         <Input
           keyboardType="decimal-pad"
           placeholder="(00) 0.0000-0000"
@@ -64,16 +70,12 @@ export function PerfilC({ navigation }) {
         />
 
         <TouchableOpacity style={styles.buttonSave}>
-          <Text>Salvar</Text>
+          <Text>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonLogout} onPress={() => navigation.navigate('Login', {name: 'Login'})}>
-          <Text>Sair</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonDelete}>
-          <Text>Deletar Conta</Text>
+        <TouchableOpacity style={styles.buttonLogout}>
+          <Text>Cancelar</Text>
         </TouchableOpacity>
       </ScrollView>
-      <Footer navigation={navigation} type="cliente" />
     </>
   );
 }
