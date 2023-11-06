@@ -51,6 +51,9 @@ export const MyStyles = () => {
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: defaultTheme["red-500"],
+    },
+    label: {
+      color: defaultTheme["color-9"]
     }
   });
 };

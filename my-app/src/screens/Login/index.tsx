@@ -33,6 +33,19 @@ export function Login({navigation}) {
     );
   };
 
+  const openErrorAlert = () => {
+    Alert.alert(
+      "Erro.",
+      "Necessário preencher todos os campos",
+      [
+        { text: "Ok", onPress: () => console.log("Ok") },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
   const openForgotMyPasswordAlert = () => {
     Alert.alert(
       "Ligue para o numero :",
@@ -47,13 +60,15 @@ export function Login({navigation}) {
   };
 
   async function handlePress() {
-    // if (email.validate() && senha.validate()) {
-    //   userLogin(email.value, senha.value)
-    //   if(!erro) {
-    //     navigation.navigate('Home', {name: 'Home'})
-    //   }
-    // } 
-    navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
+    if (email.validate() && senha.validate()) {
+      userLogin(email.value, senha.value)
+      if(!erro) {
+        navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
+      }
+    } else {
+      openErrorAlert()
+    }
+    // navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
   }
 
   const styles = MyStyles();
@@ -97,7 +112,6 @@ export function Login({navigation}) {
             Esqueci minha senha
           </Text>
         </View>
-        <Message>{message}</Message>
       </View>
     </>
   );

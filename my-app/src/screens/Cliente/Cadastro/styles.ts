@@ -16,7 +16,8 @@ export const MyStyles = () => {
     },
     title: {
       fontSize: 20,
-      marginTop: 5
+      marginTop: 5,
+      backgroundColor: defaultTheme["color-9"],
     },
     buttonSave: {
       height: 50,
@@ -50,6 +51,9 @@ export const MyStyles = () => {
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: defaultTheme["red-500"],
+    },
+    label: {
+      color: defaultTheme["color-9"]
     }
   });
 };

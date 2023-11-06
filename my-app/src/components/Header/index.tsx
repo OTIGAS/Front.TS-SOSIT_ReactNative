@@ -14,14 +14,7 @@ export const Header = (props: HeaderProps) => {
   const { data } = useContext(UserContext);
   const { theme, handleThemeChange } = useContext(ThemaContext);
 
-  function handlePressLogout() {
-    if(data) {
-      console.log(data)
-      console.log(data.nome)
-    }
-  }
-
-  function handlePressCreateAccount() {
+  function handlePress() {
     if(data) {
       console.log(data)
       console.log(data.nome)
@@ -41,7 +34,7 @@ export const Header = (props: HeaderProps) => {
         }
       </TouchableOpacity>
       <Text style={styles.title}>{props.screen && props.screen}</Text>
-      <TouchableOpacity style={styles.button} onPress={handlePressCreateAccount}>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text>PT-BR</Text>
       </TouchableOpacity>
     </View>

@@ -27,6 +27,7 @@ export const MyStyles = () => {
     },
     label: {
       marginTop: 10,
+      color: defaultTheme["color-9"],
       textAlign: "center"
     }
   });

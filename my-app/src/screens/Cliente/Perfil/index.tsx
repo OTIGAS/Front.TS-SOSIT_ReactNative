@@ -21,7 +21,7 @@ export function PerfilC({ navigation }) {
       <Header screen="Perfil" />
       <ScrollView style={styles.perfil}>
         <Text style={styles.title}>Usuário</Text>
-        <Text>Nome :</Text>
+        <Text style={styles.label}>Nome :</Text>
         <Input
           keyboardType="default"
           placeholder="Nome"
@@ -31,7 +31,7 @@ export function PerfilC({ navigation }) {
           onBlur={nome.onBlur}
           onChange={nome.setValue}
         />
-        <Text>E-mail :</Text>
+        <Text style={styles.label}>E-mail :</Text>
         <Input
           keyboardType="email-address"
           placeholder="E-mail"
@@ -42,7 +42,7 @@ export function PerfilC({ navigation }) {
           onChange={email.setValue}
         />
         <Text style={styles.title}>Contato</Text>
-        <Text>E-mail Contato :</Text>
+        <Text style={styles.label}>E-mail Contato :</Text>
         <Input
           keyboardType="email-address"
           placeholder="E-mail Contato"
@@ -52,7 +52,7 @@ export function PerfilC({ navigation }) {
           onBlur={emailContato.onBlur}
           onChange={emailContato.setValue}
         />
-        <Text>Telefone Contato :</Text>
+        <Text style={styles.label}>Telefone Contato :</Text>
         <Input
           keyboardType="decimal-pad"
           placeholder="(00) 0.0000-0000"
@@ -64,13 +64,13 @@ export function PerfilC({ navigation }) {
         />
 
         <TouchableOpacity style={styles.buttonSave}>
-          <Text>Salvar</Text>
+          <Text style={styles.label}>Salvar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonLogout} onPress={() => navigation.navigate('Login', {name: 'Login'})}>
-          <Text>Sair</Text>
+          <Text style={styles.label}>Sair</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonDelete}>
-          <Text>Deletar Conta</Text>
+          <Text style={styles.label}>Deletar Conta</Text>
         </TouchableOpacity>
       </ScrollView>
       <Footer navigation={navigation} type="cliente" />

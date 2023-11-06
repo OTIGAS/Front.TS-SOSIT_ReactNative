@@ -19,7 +19,7 @@ export type UserContext = {
   login?: boolean;
   loading?: boolean;
 
-  userLogin?: (email: string, senha: string) => void;
+  userLogin?: (email: string, senha: string) => string;
   userLogout?: () => void;
 };
 
@@ -81,6 +81,8 @@ export const UserStorage = ({ children }: PropsWithChildren) => {
         await AsyncStorage.setItem("token", token);
         setMessage(mensagem);
         getUser(token);
+        
+        return tipo;
       } catch (error) {
         console.log(error);
       }

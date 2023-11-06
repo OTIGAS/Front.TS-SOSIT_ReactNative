@@ -6,7 +6,7 @@ import { Header } from "../../../components/Header";
 import { OpenAppointments } from "../../../components/OpenAppointments";
 import { BookedAppointments } from "../../../components/BookedAppointments";
 
-export function AgendaEmpresaC({ navigation }) {
+export function AgendaEmpresaE({ navigation }) {
   const styles = MyStyles();
 
   return (
