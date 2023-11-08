@@ -1,12 +1,115 @@
-export const API_URL = "http://10.5.17.9:3333"
+export const API_URL = "http://192.168.15.25:3333";
 
-type IAuthentication ={
+type IClienteCadastro = {
+  nome: string;
   email: string;
-  senha: string
+  senha: string;
+  email_contato: string;
+  telefone: string;
 }
 
-export function Authentication({email, senha}: IAuthentication) {
-  const data = {email, senha}
+export function CreateCliente(body: IClienteCadastro){
+  return {
+    url: API_URL + "/usuario/cliente",
+    options: {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: {
+          usuario: {
+            nome: body.nome,
+            email: body.email,
+            senha: body.senha,
+          },
+          contato: {
+            nome_contato: body.nome,
+            telefone: body.telefone,
+            email_contato: body.email_contato,
+          },
+        },
+      }),
+    }
+  }
+}
+
+type IEmpresaCadastro = {
+  nome: string;
+  email: string;
+  senha: string;
+  email_contato: string;
+  telefone: string;
+  nome_contato: string;
+  cep: string;
+  rua: string;
+  num: string;
+  cidade: string;
+  estado: string;
+  cnpj: string;
+  descricao: string;
+  link_site: string;
+  img_perfil: string;
+  banco: string;
+  agencia: string;
+  digito: string;
+  tipo_conta: string;
+  conta: string;
+};
+
+export function CreateEmpresa(body: IEmpresaCadastro) {
+  return {
+    url: API_URL + "/usuario/empresa",
+    options: {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: {
+          usuario: {
+            nome: body.nome,
+            email: body.email,
+            senha: body.senha,
+          },
+          contato: {
+            telefone: body.telefone,
+            nome_contato: body.nome_contato,
+            email_contato: body.email_contato,
+          },
+          endereco: {
+            cep: body.cep,
+            rua: body.rua,
+            num: body.num,
+            cidade: body.cidade,
+            estado: body.estado,
+          },
+          informacoes_empresa: {
+            cnpj: body.cnpj,
+            descricao: body.descricao,
+            link_site: body.link_site,
+            img_perfil: body.img_perfil,
+          },
+          dados_bancarios: {
+            banco: body.banco,
+            agencia: body.agencia,
+            digito: body.digito,
+            tipo_conta: body.tipo_conta,
+            conta: body.conta,
+          },
+        },
+      }),
+    },
+  };
+}
+
+type IAuthentication = {
+  email: string;
+  senha: string;
+};
+
+export function Authentication({ email, senha }: IAuthentication) {
+  const data = { email, senha };
   return {
     url: API_URL + "/usuario/autenticar",
     options: {
@@ -14,9 +117,9 @@ export function Authentication({email, senha}: IAuthentication) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data })
-    }
-  }
+      body: JSON.stringify({ data }),
+    },
+  };
 }
 
 export function Profile(token: string) {
@@ -27,6 +130,6 @@ export function Profile(token: string) {
       headers: {
         Authorization: "Bearer " + token,
       },
-    }
-  }
+    },
+  };
 }

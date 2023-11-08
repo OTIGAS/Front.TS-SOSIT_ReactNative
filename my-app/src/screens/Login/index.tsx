@@ -9,10 +9,9 @@ import { UserContext } from "../../context/UserContext";
 
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { Message } from "../../components/Message";
 import { Header } from "../../components/Header";
 
-export function Login({navigation}) {
+export function Login({ navigation }) {
   const email = useForm("email");
   const senha = useForm("password");
 
@@ -23,8 +22,16 @@ export function Login({navigation}) {
       "Crie uma conta.",
       "Escolha a forma de cadastro",
       [
-        { text: "Cliente", onPress: () => navigation.navigate('CadastroCliente', {name: 'CadastroCliente'}) },
-        { text: "Empresa", onPress: () => navigation.navigate('CadastroEmpresa', {name: 'CadastroEmpresa'}) },
+        {
+          text: "Cliente",
+          onPress: () =>
+            navigation.navigate("CadastroCliente", { name: "CadastroCliente" }),
+        },
+        {
+          text: "Empresa",
+          onPress: () =>
+            navigation.navigate("CadastroEmpresa", { name: "CadastroEmpresa" }),
+        },
         { text: "Cancelar", onPress: () => console.log("Cancelar") },
       ],
       {
@@ -37,9 +44,7 @@ export function Login({navigation}) {
     Alert.alert(
       "Erro.",
       "Necessário preencher todos os campos",
-      [
-        { text: "Ok", onPress: () => console.log("Ok") },
-      ],
+      [{ text: "Ok", onPress: () => console.log("Ok") }],
       {
         cancelable: true,
       }
@@ -50,9 +55,7 @@ export function Login({navigation}) {
     Alert.alert(
       "Ligue para o numero :",
       "(19) 9 9527-7858",
-      [
-        { text: "Ok", onPress: () => console.log("Esqueci minha senha") },
-      ],
+      [{ text: "Ok", onPress: () => console.log("Esqueci minha senha") }],
       {
         cancelable: true,
       }
@@ -61,12 +64,17 @@ export function Login({navigation}) {
 
   async function handlePress() {
     if (email.validate() && senha.validate()) {
-      userLogin(email.value, senha.value)
-      if(!erro) {
-        navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
+      userLogin(email.value, senha.value);
+      if (!erro) {
+        console.log(data.tipo);
+        if (data.tipo === "cliente") {
+          navigation.navigate("PesquisaCliente", { name: "PesquisaCliente" });
+        } else if (data.tipo === "empresa") {
+          navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
+        }
       }
     } else {
-      openErrorAlert()
+      openErrorAlert();
     }
     // navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
   }
@@ -75,11 +83,11 @@ export function Login({navigation}) {
 
   return (
     <>
-      <Header screen="Login"/>
+      <Header screen="Login" />
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={require('./../../assets/logo.png')}
+          source={require("./../../assets/logo.png")}
         />
         <View style={styles.sub_container}>
           <Input

@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity, Text } from "react-native";
+import { ScrollView, TouchableOpacity, Text, Alert } from "react-native";
 import { MyStyles } from "./styles";
 
 import { Footer } from "../../../components/Footer";
@@ -6,6 +6,7 @@ import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 
 import useForm from "../../../hooks/useForm";
+import { CreateEmpresa } from "../../../api";
 
 export function CadastroE({ navigation }) {
   const styles = MyStyles();
@@ -14,9 +15,9 @@ export function CadastroE({ navigation }) {
   const email = useForm("email");
   const senha = useForm("password");
 
-  const nomeContato = useForm("");
-  const emailContato = useForm("email");
-  const telefoneContato = useForm("fone");
+  const nome_contato = useForm("");
+  const email_contato = useForm("email");
+  const telefone = useForm("fone");
 
   const cep = useForm("cep");
   const estado = useForm("");
@@ -26,20 +27,92 @@ export function CadastroE({ navigation }) {
 
   const cnpj = useForm("cnpj");
   const descricao = useForm("");
-  const linkSite = useForm("");
-  const imgPerfil = useForm("");
+  const link_site = useForm("");
+  const img_perfil = useForm("");
 
   const banco = useForm("");
   const agencia = useForm("");
   const digito = useForm("");
-  const tipoConta = useForm("");
+  const tipo_conta = useForm("");
   const conta = useForm("");
+
+  function openAlertHome(mensagem: string) {
+    Alert.alert(
+      mensagem,
+      null,
+      [
+        {
+          text: "Voltar",
+          onPress: () => navigation.navigate("Login", { name: "Login" }),
+        },
+        { text: "Cancelar", onPress: () => console.log("Cancelar") },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  }
+
+  async function handlePress() {
+    if (
+      nome.validate() &&
+      email.validate() &&
+      senha.validate() &&
+      nome_contato.validate() &&
+      email_contato.validate() &&
+      telefone.validate() &&
+      cep.validate() &&
+      estado.validate() &&
+      cidade.validate() &&
+      rua.validate() &&
+      num.validate() &&
+      cnpj.validate() &&
+      descricao.validate() &&
+      link_site.validate() &&
+      img_perfil.validate() &&
+      banco.validate() &&
+      agencia.validate() &&
+      digito.validate() &&
+      tipo_conta.validate() &&
+      conta.validate()
+    ) {
+      const body = {
+        nome: nome.value,
+        email: email.value,
+        senha: senha.value,
+        nome_contato: nome_contato.value,
+        email_contato: email_contato.value,
+        telefone: telefone.value,
+        cep: cep.value,
+        estado: estado.value,
+        cidade: cidade.value,
+        rua: rua.value,
+        num: num.value,
+        cnpj: cnpj.value,
+        descricao: descricao.value,
+        link_site: link_site.value,
+        img_perfil: img_perfil.value,
+        banco: banco.value,
+        agencia: agencia.value,
+        digito: digito.value,
+        tipo_conta: tipo_conta.value,
+        conta: conta.value,
+      };
+
+      const { url, options } = CreateEmpresa(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.mensagem) {
+        openAlertHome(json.mensagem);
+      }
+    }
+  }
 
   return (
     <>
       <Header screen="Cadastro" />
       <ScrollView style={styles.perfil}>
-        
         <Text style={styles.title}>Usuário</Text>
         <Input
           keyboardType="default"
@@ -73,28 +146,28 @@ export function CadastroE({ navigation }) {
           keyboardType="default"
           placeholder="Nome da Pessoa de Contato"
           placeholderTextColor="#B9B9B9"
-          value={nomeContato.value}
-          error={nomeContato.error}
-          onBlur={nomeContato.onBlur}
-          onChange={nomeContato.setValue}
+          value={nome_contato.value}
+          error={nome_contato.error}
+          onBlur={nome_contato.onBlur}
+          onChange={nome_contato.setValue}
         />
         <Input
           keyboardType="email-address"
           placeholder="E-mail Contato"
           placeholderTextColor="#B9B9B9"
-          value={emailContato.value}
-          error={emailContato.error}
-          onBlur={emailContato.onBlur}
-          onChange={emailContato.setValue}
+          value={email_contato.value}
+          error={email_contato.error}
+          onBlur={email_contato.onBlur}
+          onChange={email_contato.setValue}
         />
         <Input
           keyboardType="decimal-pad"
           placeholder="(00) 0.0000-0000"
           placeholderTextColor="#B9B9B9"
-          value={telefoneContato.value}
-          error={telefoneContato.error}
-          onBlur={telefoneContato.onBlur}
-          onChange={telefoneContato.setValue}
+          value={telefone.value}
+          error={telefone.error}
+          onBlur={telefone.onBlur}
+          onChange={telefone.setValue}
         />
 
         <Text style={styles.title}>Endereço</Text>
@@ -167,19 +240,19 @@ export function CadastroE({ navigation }) {
           keyboardType="default"
           placeholder="Link do Site da Empresa"
           placeholderTextColor="#B9B9B9"
-          value={linkSite.value}
-          error={linkSite.error}
-          onBlur={linkSite.onBlur}
-          onChange={linkSite.setValue}
+          value={link_site.value}
+          error={link_site.error}
+          onBlur={link_site.onBlur}
+          onChange={link_site.setValue}
         />
         <Input
           keyboardType="default"
           placeholder="Link de Imagem de Pefil"
           placeholderTextColor="#B9B9B9"
-          value={imgPerfil.value}
-          error={imgPerfil.error}
-          onBlur={imgPerfil.onBlur}
-          onChange={imgPerfil.setValue}
+          value={img_perfil.value}
+          error={img_perfil.error}
+          onBlur={img_perfil.onBlur}
+          onChange={img_perfil.setValue}
         />
 
         <Text style={styles.title}>Dados Bancários</Text>
@@ -214,10 +287,10 @@ export function CadastroE({ navigation }) {
           keyboardType="default"
           placeholder="Tipo da Conta"
           placeholderTextColor="#B9B9B9"
-          value={tipoConta.value}
-          error={tipoConta.error}
-          onBlur={tipoConta.onBlur}
-          onChange={tipoConta.setValue}
+          value={tipo_conta.value}
+          error={tipo_conta.error}
+          onBlur={tipo_conta.onBlur}
+          onChange={tipo_conta.setValue}
         />
         <Input
           keyboardType="default"
@@ -229,10 +302,13 @@ export function CadastroE({ navigation }) {
           onChange={conta.setValue}
         />
 
-        <TouchableOpacity style={styles.buttonSave}>
+        <TouchableOpacity style={styles.buttonSave} onPress={handlePress}>
           <Text>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonLogout}>
+        <TouchableOpacity 
+          style={styles.buttonLogout} 
+          onPress={() => navigation.navigate("Login", { name: "Login" })}
+        >
           <Text>Cancelar</Text>
         </TouchableOpacity>
       </ScrollView>

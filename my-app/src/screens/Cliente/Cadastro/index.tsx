@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity, Text } from "react-native";
+import { ScrollView, TouchableOpacity, Text, Alert } from "react-native";
 import { MyStyles } from "./styles";
 
 import { Footer } from "../../../components/Footer";
@@ -6,6 +6,7 @@ import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 
 import useForm from "../../../hooks/useForm";
+import { CreateCliente } from "../../../api";
 
 export function CadastroC({ navigation }) {
   const styles = MyStyles();
@@ -13,15 +14,57 @@ export function CadastroC({ navigation }) {
   const nome = useForm("");
   const email = useForm("email");
   const senha = useForm("password");
+  const email_contato = useForm("email");
+  const telefone = useForm("fone");
 
-  const emailContato = useForm("email");
-  const telefoneContato = useForm("fone");
+  function openAlertHome(mensagem: string) {
+    Alert.alert(
+      mensagem,
+      null,
+      [
+        {
+          text: "Voltar",
+          onPress: () => navigation.navigate("Login", { name: "Login" }),
+        },
+        { text: "Cancelar", onPress: () => console.log("Cancelar") },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  }
+
+  async function handlePress() {
+    if (
+      nome.validate() &&
+      email.validate() &&
+      senha.validate() &&
+      email_contato.validate() &&
+      telefone.validate()
+    ) {
+      const body = {
+        nome: nome.value,
+        email: email.value,
+        senha: senha.value,
+        email_contato: email_contato.value,
+        telefone: telefone.value,
+      };
+
+      const { url, options } = CreateCliente(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.mensagem) {
+        openAlertHome(json.mensagem);
+      }
+    }
+  }
 
   return (
     <>
       <Header screen="Cadastro" />
       <ScrollView style={styles.perfil}>
-        <Text style={styles.title}>Usuário</Text>
+        <Text style={styles.label}>Usuário</Text>
         <Input
           keyboardType="default"
           placeholder="Nome"
@@ -49,30 +92,33 @@ export function CadastroC({ navigation }) {
           onBlur={senha.onBlur}
           onChange={senha.setValue}
         />
-        <Text style={styles.title}>Contato</Text>
+        <Text style={styles.label}>Contato</Text>
         <Input
           keyboardType="email-address"
           placeholder="E-mail Contato"
           placeholderTextColor="#B9B9B9"
-          value={emailContato.value}
-          error={emailContato.error}
-          onBlur={emailContato.onBlur}
-          onChange={emailContato.setValue}
+          value={email_contato.value}
+          error={email_contato.error}
+          onBlur={email_contato.onBlur}
+          onChange={email_contato.setValue}
         />
         <Input
           keyboardType="decimal-pad"
           placeholder="(00) 0.0000-0000"
           placeholderTextColor="#B9B9B9"
-          value={telefoneContato.value}
-          error={telefoneContato.error}
-          onBlur={telefoneContato.onBlur}
-          onChange={telefoneContato.setValue}
+          value={telefone.value}
+          error={telefone.error}
+          onBlur={telefone.onBlur}
+          onChange={telefone.setValue}
         />
 
-        <TouchableOpacity style={styles.buttonSave}>
+        <TouchableOpacity style={styles.buttonSave} onPress={handlePress}>
           <Text>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonLogout}>
+        <TouchableOpacity 
+          style={styles.buttonLogout} 
+          onPress={() => navigation.navigate("Login", { name: "Login" })}
+        >
           <Text>Cancelar</Text>
         </TouchableOpacity>
       </ScrollView>
