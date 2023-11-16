@@ -32,7 +32,6 @@ export function Login({ navigation }) {
           onPress: () =>
             navigation.navigate("CadastroEmpresa", { name: "CadastroEmpresa" }),
         },
-        { text: "Cancelar", onPress: () => console.log("Cancelar") },
       ],
       {
         cancelable: true,
@@ -42,9 +41,20 @@ export function Login({ navigation }) {
 
   const openErrorAlert = () => {
     Alert.alert(
-      "Erro.",
+      "Falha ao autenticar.",
       "Necessário preencher todos os campos",
-      [{ text: "Ok", onPress: () => console.log("Ok") }],
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  const openAuthErrorAlert = (error: string) => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      error,
+      [{ text: "Ok", onPress: () => null }],
       {
         cancelable: true,
       }
@@ -65,18 +75,16 @@ export function Login({ navigation }) {
   async function handlePress() {
     if (email.validate() && senha.validate()) {
       userLogin(email.value, senha.value);
-      if (!erro) {
-        console.log(data.tipo);
+      if (erro) {
+        openAuthErrorAlert(erro);
+      } else {
         if (data.tipo === "cliente") {
           navigation.navigate("PesquisaCliente", { name: "PesquisaCliente" });
         } else if (data.tipo === "empresa") {
           navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
         }
       }
-    } else {
-      openErrorAlert();
-    }
-    // navigation.navigate('PesquisaCliente', {name: 'PesquisaCliente'})
+    } 
   }
 
   const styles = MyStyles();

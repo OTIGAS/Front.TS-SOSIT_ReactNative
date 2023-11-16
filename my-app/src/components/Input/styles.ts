@@ -18,6 +18,7 @@ export const MyStyles = () => {
       borderWidth: 1,
 
       color: defaultTheme['color-7'],
+      backgroundColor: defaultTheme['color-1'],
   
       padding: 16,
       marginBottom: 5,

@@ -23,10 +23,9 @@ export function CadastroC({ navigation }) {
       null,
       [
         {
-          text: "Voltar",
+          text: "Tela de Login",
           onPress: () => navigation.navigate("Login", { name: "Login" }),
         },
-        { text: "Cancelar", onPress: () => console.log("Cancelar") },
       ],
       {
         cancelable: true,
@@ -54,7 +53,9 @@ export function CadastroC({ navigation }) {
       const response = await fetch(url, options);
       const json = await response.json();
 
-      if (json.mensagem) {
+      if (json.erro) {
+        openAlertHome(json.erro);
+      } else {
         openAlertHome(json.mensagem);
       }
     }
@@ -115,8 +116,8 @@ export function CadastroC({ navigation }) {
         <TouchableOpacity style={styles.buttonSave} onPress={handlePress}>
           <Text>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.buttonLogout} 
+        <TouchableOpacity
+          style={styles.buttonLogout}
           onPress={() => navigation.navigate("Login", { name: "Login" })}
         >
           <Text>Cancelar</Text>

@@ -42,10 +42,9 @@ export function CadastroE({ navigation }) {
       null,
       [
         {
-          text: "Voltar",
+          text: "Tela de Login",
           onPress: () => navigation.navigate("Login", { name: "Login" }),
         },
-        { text: "Cancelar", onPress: () => console.log("Cancelar") },
       ],
       {
         cancelable: true,
@@ -103,7 +102,9 @@ export function CadastroE({ navigation }) {
       const response = await fetch(url, options);
       const json = await response.json();
 
-      if (json.mensagem) {
+      if (json.erro) {
+        openAlertHome(json.erro);
+      } else {
         openAlertHome(json.mensagem);
       }
     }
@@ -113,7 +114,7 @@ export function CadastroE({ navigation }) {
     <>
       <Header screen="Cadastro" />
       <ScrollView style={styles.perfil}>
-        <Text style={styles.title}>Usuário</Text>
+        <Text style={styles.title}>Empresa</Text>
         <Input
           keyboardType="default"
           placeholder="Nome"

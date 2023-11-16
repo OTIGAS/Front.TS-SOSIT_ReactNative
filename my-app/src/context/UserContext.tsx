@@ -19,7 +19,7 @@ export type UserContext = {
   login?: boolean;
   loading?: boolean;
 
-  userLogin?: (email: string, senha: string) => string;
+  userLogin?: (email: string, senha: string) => void;
   userLogout?: () => void;
 };
 
@@ -72,17 +72,15 @@ export const UserStorage = ({ children }: PropsWithChildren) => {
     const { url, options } = Authentication({ email, senha });
 
     const response = await fetch(url, options);
-    const { tipo, token, mensagem, erro } = await response.json();
+    const json = await response.json();
 
-    if (erro) {
-      setMessage(erro);
+    if (json.erro) {
+      setErro(json.erro)
     } else {
       try {
-        await AsyncStorage.setItem("token", token);
-        setMessage(mensagem);
-        getUser(token);
-        
-        return tipo;
+        await AsyncStorage.setItem("token", json.token);
+        setMessage(json.mensagem);
+        getUser(json.token);
       } catch (error) {
         console.log(error);
       }
