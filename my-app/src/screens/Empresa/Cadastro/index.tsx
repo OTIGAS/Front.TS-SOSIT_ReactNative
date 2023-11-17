@@ -306,8 +306,8 @@ export function CadastroE({ navigation }) {
         <TouchableOpacity style={styles.buttonSave} onPress={handlePress}>
           <Text>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.buttonLogout} 
+        <TouchableOpacity
+          style={styles.buttonLogout}
           onPress={() => navigation.navigate("Login", { name: "Login" })}
         >
           <Text>Cancelar</Text>

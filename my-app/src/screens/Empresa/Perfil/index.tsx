@@ -39,7 +39,6 @@ export function PerfilE({ navigation }) {
     <>
       <Header screen="Perfil" />
       <ScrollView style={styles.perfil}>
-
         <Text style={styles.title}>Usuário</Text>
         <Input
           keyboardType="default"
@@ -232,7 +231,10 @@ export function PerfilE({ navigation }) {
         <TouchableOpacity style={styles.buttonSave}>
           <Text>Salvar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonLogout} onPress={() => navigation.navigate('Login', {name: 'Login'})}>
+        <TouchableOpacity
+          style={styles.buttonLogout}
+          onPress={() => navigation.navigate("Login", { name: "Login" })}
+        >
           <Text>Sair</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonDelete}>

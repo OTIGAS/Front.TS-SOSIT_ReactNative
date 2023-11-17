@@ -12,10 +12,9 @@ export const MyStyles = () => {
     mainContainer: {
       flex: 1,
 
-      padding: 30
-    }
+      padding: 30,
+    },
   });
-    
 };
 
 export default MyStyles;

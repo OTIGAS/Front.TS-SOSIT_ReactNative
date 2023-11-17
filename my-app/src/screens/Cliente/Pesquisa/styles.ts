@@ -42,7 +42,7 @@ export const MyStyles = () => {
     button: {
       width: 56,
       height: 56,
-      marginLeft:5,
+      marginLeft: 5,
       marginBottom: 5,
       borderRadius: 5,
       alignItems: "center",

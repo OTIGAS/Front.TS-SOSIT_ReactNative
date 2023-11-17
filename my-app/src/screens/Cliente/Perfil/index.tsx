@@ -66,7 +66,10 @@ export function PerfilC({ navigation }) {
         <TouchableOpacity style={styles.buttonSave}>
           <Text style={styles.label}>Salvar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonLogout} onPress={() => navigation.navigate('Login', {name: 'Login'})}>
+        <TouchableOpacity
+          style={styles.buttonLogout}
+          onPress={() => navigation.navigate("Login", { name: "Login" })}
+        >
           <Text style={styles.label}>Sair</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonDelete}>

@@ -11,7 +11,7 @@ export const MyStyles = () => {
   return StyleSheet.create({
     historico: {
       flex: 1,
-      
+
       backgroundColor: defaultTheme["color-1"],
     },
     buttonCancel: {

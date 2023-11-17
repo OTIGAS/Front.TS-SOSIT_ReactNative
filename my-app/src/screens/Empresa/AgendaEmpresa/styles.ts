@@ -12,10 +12,19 @@ export const MyStyles = () => {
     mainContainer: {
       flex: 1,
 
-      padding: 30
-    }
+      padding: 30,
+    },
+    button: {
+      width: 56,
+      height: 56,
+      marginLeft: 5,
+      marginBottom: 5,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: defaultTheme["blue-500"],
+    },
   });
-    
 };
 
 export default MyStyles;

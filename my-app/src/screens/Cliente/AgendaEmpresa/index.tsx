@@ -13,13 +13,10 @@ export function AgendaEmpresaC({ navigation }) {
     <>
       <Header screen="Agenda" />
       <ScrollView style={styles.mainContainer}>
-        <OpenAppointments navigation={navigation}/>
-        <BookedAppointments navigation={navigation}/>
+        <OpenAppointments navigation={navigation} />
+        <BookedAppointments navigation={navigation} />
       </ScrollView>
-      <Footer 
-        navigation={navigation} 
-        type="cliente"
-      />
+      <Footer navigation={navigation} type="cliente" />
     </>
   );
 }

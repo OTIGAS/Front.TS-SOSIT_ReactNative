@@ -6,7 +6,7 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MyStyles } from "./styles";
 
 import { Input } from "../../../components/Input";
@@ -16,6 +16,10 @@ import { Calendars } from "../../../components/Calendars";
 import useForm from "../../../hooks/useForm";
 
 export function PesquisaE({ navigation }) {
+
+  useEffect(() => {
+    
+  }, [])
   const styles = MyStyles();
 
   const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(

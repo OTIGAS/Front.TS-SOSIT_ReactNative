@@ -40,11 +40,11 @@ export const UserStorage = ({ children }: PropsWithChildren) => {
         try {
           setLoading(true);
           setErro(null);
-
           const { url, options } = Profile(token);
           const response = await fetch(url, options);
-          if (response.status != 200) throw new Error("Token inválido");
-
+          if (response.status != 200) {
+            throw new Error("Token inválido");
+          }
           const json = await response.json();
           setData(json[0]);
           setLogin(true);

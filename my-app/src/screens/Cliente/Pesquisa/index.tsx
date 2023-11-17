@@ -26,7 +26,9 @@ export function PesquisaC({ navigation }) {
   const search = useForm("");
 
   async function handlePressCalendar() {
-    navigation.navigate('AgendaEmpresaCliente', {name: 'AgendaEmpresaCliente'})
+    navigation.navigate("AgendaEmpresaCliente", {
+      name: "AgendaEmpresaCliente",
+    });
   }
 
   return (
@@ -63,7 +65,7 @@ export function PesquisaC({ navigation }) {
       </View>
 
       <ScrollView style={styles.container}>
-        <SearchCalendar typeSearch={typeSearch} onPress={handlePressCalendar}/>
+        <SearchCalendar typeSearch={typeSearch} onPress={handlePressCalendar} />
         <SearchCalendar typeSearch={typeSearch} />
         <SearchCalendar typeSearch={typeSearch} />
         <SearchCalendar typeSearch={typeSearch} />

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { View, Image, Alert, Text } from "react-native";
 import { MyStyles } from "./styles";
@@ -15,7 +15,18 @@ export function Login({ navigation }) {
   const email = useForm("email");
   const senha = useForm("password");
 
-  const { data, userLogin, message, erro } = useContext(UserContext);
+  const { data, userLogin, message, erro, login } = useContext(UserContext);
+
+  useEffect(() => {
+    if (login) {
+      console.log(data);
+      if (data.tipo === "cliente") {
+        navigation.navigate("PesquisaCliente", { name: "PesquisaCliente" });
+      } else if (data.tipo === "empresa") {
+        navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
+      }
+    }
+  }, [login]);
 
   const openRegisterAlert = () => {
     Alert.alert(
@@ -84,7 +95,9 @@ export function Login({ navigation }) {
           navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
         }
       }
-    } 
+    } else {
+      openErrorAlert();
+    }
   }
 
   const styles = MyStyles();

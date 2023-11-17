@@ -53,8 +53,8 @@ export const MyStyles = () => {
       backgroundColor: defaultTheme["red-500"],
     },
     label: {
-      color: defaultTheme["color-9"]
-    }
+      color: defaultTheme["color-9"],
+    },
   });
 };
 

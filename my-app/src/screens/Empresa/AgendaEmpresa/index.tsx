@@ -1,4 +1,4 @@
-import { ScrollView, Text } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity } from "react-native";
 import { MyStyles } from "./styles";
 
 import { Footer } from "../../../components/Footer";
@@ -9,17 +9,21 @@ import { BookedAppointments } from "../../../components/BookedAppointments";
 export function AgendaEmpresaE({ navigation }) {
   const styles = MyStyles();
 
+  async function handlePress() {
+    navigation.navigate("CadastroAgenda", { name: "CadastroAgenda" });
+  }
+
   return (
     <>
       <Header screen="Agenda" />
       <ScrollView style={styles.mainContainer}>
-        <OpenAppointments navigation={navigation}/>
-        <BookedAppointments navigation={navigation}/>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Image source={require("./../../../assets/manage_search.png")} />
+        </TouchableOpacity>
+        <OpenAppointments navigation={navigation} />
+        <BookedAppointments navigation={navigation} />
       </ScrollView>
-      <Footer 
-        navigation={navigation} 
-        type="empresa"
-      />
+      <Footer navigation={navigation} type="empresa" />
     </>
   );
 }
