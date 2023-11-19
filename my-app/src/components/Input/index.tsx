@@ -1,50 +1,34 @@
-import { ReactNode } from "react";
-import { MyStyles } from "./styles";
+import { useContext } from "react";
+import { StyleSheet } from "react-native";
+import { ThemaContext } from "../../context/ThemeContext";
+import { defaultThemeLight, defaultThemeDark } from "../../themes/default";
 
-import { Text, TextInput } from "react-native";
+export const MyStyles = () => {
+  const { theme } = useContext(ThemaContext);
 
-type InputProps = {
-  keyboardType?:
-    | "default"
-    | "numeric"
-    | "email-address"
-    | "ascii-capable"
-    | "numbers-and-punctuation"
-    | "url"
-    | "number-pad"
-    | "phone-pad"
-    | "name-phone-pad"
-    | "decimal-pad"
-    | "twitter"
-    | "web-search"
-    | "visible-password";
-  secureTextEntry?: boolean;
-  placeholder: string;
-  placeholderTextColor: string;
-  value: string;
-  error?:string;
-  onBlur?: () => void;
-  onChange?: (text: string) => void;
-  setValue?: (text: string) => void;
+  const defaultTheme = theme === "light" ? defaultThemeLight : defaultThemeDark;
+
+  return StyleSheet.create({
+    input: {
+      flexGrow: 1,
+      height: 56,
+  
+      borderRadius: 5,
+      borderColor: defaultTheme['color-9'],
+      borderWidth: 1,
+
+      color: defaultTheme['color-7'],
+      backgroundColor: defaultTheme['color-1'],
+  
+      padding: 16,
+      marginBottom: 5,
+  
+      fontSize: 16,
+    },
+    error: {
+      color: "red"
+    }
+  });
 };
 
-export const Input = (props: InputProps) => {
-  const styles = MyStyles();
-  return (
-    <>
-      <TextInput
-        style={styles.input}
-        keyboardType={props.keyboardType}
-        secureTextEntry={props.secureTextEntry ? props.secureTextEntry : false}
-        placeholder={props.placeholder}
-        placeholderTextColor={props.placeholderTextColor}
-        value={props.value}
-        onBlur={props.onBlur}
-        onChangeText={props.onChange}
-      />
-      {
-        props.error && <Text style={styles.error}>{props.error}</Text>
-      }
-    </>
-  );
-};
+export default MyStyles;
