@@ -5,6 +5,10 @@ import { TouchableOpacity, View, Text } from "react-native";
 
 type SearchCalendarProps = {
   typeSearch: "Serviço" | "Empresa";
+  empresa: string;
+  servico: string;
+  cidade: string;
+  semana: string;
   onPress?: () => void;
 };
 
@@ -25,12 +29,12 @@ export const SearchCalendar = (props: SearchCalendarProps) => {
   return (
     <TouchableOpacity style={styles.mainContainer} onPress={props.onPress}>
       <View style={styles.subContainer}>
-        <Text style={stylesCompany}>Nome da Emprese</Text>
-        <Text style={stylesService}>Nome do Serviço</Text>
+        <Text style={stylesCompany}>{props.empresa}</Text>
+        <Text style={stylesService}>{props.semana}</Text>
       </View>
       <View style={styles.subContainer}>
-        <Text style={styles.textOne}>Cidade</Text>
-        <Text style={styles.textTwo}>Seg, Ter, Qua, Qui, Sex, Sab</Text>
+        <Text style={styles.textOne}>{props.cidade}</Text>
+        <Text style={styles.textTwo}>{props.semana}</Text>
       </View>
     </TouchableOpacity>
   );
