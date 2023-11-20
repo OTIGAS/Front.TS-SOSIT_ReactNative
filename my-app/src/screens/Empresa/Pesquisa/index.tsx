@@ -16,25 +16,41 @@ import { Calendars } from "../../../components/Calendars";
 import useForm from "../../../hooks/useForm";
 
 export function PesquisaE({ navigation }) {
-
-  useEffect(() => {
-    
-  }, [])
+  useEffect(() => {}, []);
   const styles = MyStyles();
 
-  const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(
-    "Serviço"
-  );
   const search = useForm("");
 
-  async function handlePress() {
-    console.log("Alo");
+  const openErrorAlert = () => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      "Necessário preencher todos os campos",
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  async function handlePressSearch() {
+    if (search.value) {
+      console.log("Pesquisar ", search);
+    } else {
+      openErrorAlert();
+    }
+  }
+
+  async function handlePressCalendarAdd() {
+    navigation.navigate("CadastroAgenda", { name: "CadastroAgenda" });
+  }
+
+  async function handlePressCalendar() {
+    console.log("Calendario");
   }
 
   return (
     <View style={styles.home}>
-      <Header screen="Buscar" />
-
+      <Header screen="Buscar Agenda" />
       <View style={styles.search}>
         <Input
           keyboardType="default"
@@ -45,24 +61,48 @@ export function PesquisaE({ navigation }) {
           onBlur={search.onBlur}
           onChange={search.setValue}
         />
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <TouchableOpacity style={styles.button} onPress={handlePressSearch}>
           <Image source={require("./../../../assets/manage_search.png")} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handlePressCalendarAdd}
+        >
+          <Image source={require("./../../../assets/calendar_add.png")} />
         </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.container}>
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
-        <Calendars typeSearch={typeSearch} />
+        <Calendars
+          nomeAgenda="Agenda 02"
+          nomeServicos="Serviço 02"
+          diaSemana="Ter, Qui, Sáb"
+          onPress={() => handlePressCalendar()}
+        />
+        <Calendars
+          nomeAgenda="Agenda 03"
+          nomeServicos="Serviço 03"
+          diaSemana="Seg, Sex"
+          onPress={() => handlePressCalendar()}
+        />
+        <Calendars
+          nomeAgenda="Agenda 04"
+          nomeServicos="Serviço 04"
+          diaSemana="Qua, Sex, Dom"
+          onPress={() => handlePressCalendar()}
+        />
+        <Calendars
+          nomeAgenda="Agenda 05"
+          nomeServicos="Serviço 05"
+          diaSemana="Seg, Ter, Qui"
+          onPress={() => handlePressCalendar()}
+        />
+        <Calendars
+          nomeAgenda="Agenda 06"
+          nomeServicos="Serviço 06"
+          diaSemana="Sex, Sáb"
+          onPress={() => handlePressCalendar()}
+        />
       </ScrollView>
 
       <Footer type="empresa" navigation={navigation} />
