@@ -65,18 +65,11 @@ export function PesquisaC({ navigation }) {
       </View>
 
       <ScrollView style={styles.container}>
-        <SearchCalendar typeSearch={typeSearch} onPress={handlePressCalendar} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
-        <SearchCalendar typeSearch={typeSearch} />
+        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 01" servico="Serviço 01" cidade="Cidade 01" semana="Seg, Qua, Sex" />
+        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 02" servico="Serviço 02" cidade="Cidade 02" semana="Ter, Qui, Sab" />
+        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 03" servico="Serviço 03" cidade="Cidade 03" semana="Seg, Ter, Sex" />
+        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 04" servico="Serviço 04" cidade="Cidade 04" semana="Qua, Qui, Sab" />
+        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 05" servico="Serviço 05" cidade="Cidade 05" semana="Ter, Qua, Sab" />
       </ScrollView>
 
       <Footer type="cliente" navigation={navigation} />
