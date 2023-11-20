@@ -17,7 +17,7 @@ export const MyStyles = () => {
     title: {
       fontSize: 20,
       marginTop: 5,
-      backgroundColor: defaultTheme["color-9"],
+      color: defaultTheme["color-9"],
     },
     buttonSave: {
       height: 50,
