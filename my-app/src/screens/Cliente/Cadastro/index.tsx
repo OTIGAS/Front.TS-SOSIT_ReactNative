@@ -17,7 +17,7 @@ export function CadastroC({ navigation }) {
   const email_contato = useForm("email");
   const telefone = useForm("fone");
 
-  function openAlertHome(mensagem: string) {
+  function openAlertCadastro(mensagem: string) {
     Alert.alert(
       mensagem,
       null,
@@ -32,6 +32,17 @@ export function CadastroC({ navigation }) {
       }
     );
   }
+
+  const openErrorAlert = () => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      "Necessário preencher todos os campos",
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
 
   async function handlePress() {
     if (
@@ -54,10 +65,14 @@ export function CadastroC({ navigation }) {
       const json = await response.json();
 
       if (json.erro) {
-        openAlertHome(json.erro);
+        openAlertCadastro(json.erro);
+      } else if (json.mensagem) {
+        openAlertCadastro(json.mensagem);
       } else {
-        openAlertHome(json.mensagem);
+        openAlertCadastro("Falha ao cadastrar Usuário.");
       }
+    } else {
+      openErrorAlert();
     }
   }
 
@@ -65,7 +80,7 @@ export function CadastroC({ navigation }) {
     <>
       <Header screen="Cadastro" />
       <ScrollView style={styles.perfil}>
-        <Text style={styles.label}>Usuário</Text>
+        <Text style={styles.label}>Cliente</Text>
         <Input
           keyboardType="default"
           placeholder="Nome"
