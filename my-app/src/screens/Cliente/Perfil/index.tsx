@@ -1,82 +1,61 @@
-import { ScrollView, TouchableOpacity, Text } from "react-native";
-import { MyStyles } from "./styles";
+import { useContext } from "react";
+import { StyleSheet } from "react-native";
+import { ThemaContext } from "../../../context/ThemeContext";
+import { defaultThemeLight, defaultThemeDark } from "../../../themes/default";
 
-import { Footer } from "../../../components/Footer";
-import { Header } from "../../../components/Header";
-import { Input } from "../../../components/Input";
+export const MyStyles = () => {
+  const { theme } = useContext(ThemaContext);
 
-import useForm from "../../../hooks/useForm";
+  const defaultTheme = theme === "light" ? defaultThemeLight : defaultThemeDark;
 
-export function PerfilC({ navigation }) {
-  const styles = MyStyles();
+  return StyleSheet.create({
+    perfil: {
+      flex: 1,
+      backgroundColor: defaultTheme["color-1"],
+      padding: 30,
+    },
+    title: {
+      fontSize: 20,
+      marginTop: 5,
+      color: defaultTheme["color-9"],
+    },
+    buttonSave: {
+      height: 50,
 
-  const nome = useForm("");
-  const email = useForm("email");
+      marginTop: 5,
+      marginBottom: 5,
 
-  const emailContato = useForm("email");
-  const telefoneContato = useForm("fone");
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: defaultTheme["blue-500"],
+    },
+    buttonLogout: {
+      height: 50,
 
-  return (
-    <>
-      <Header screen="Perfil" />
-      <ScrollView style={styles.perfil}>
-        <Text style={styles.title}>Usuário</Text>
-        <Text style={styles.label}>Nome :</Text>
-        <Input
-          keyboardType="default"
-          placeholder="Nome"
-          placeholderTextColor="#B9B9B9"
-          value={nome.value}
-          error={nome.error}
-          onBlur={nome.onBlur}
-          onChange={nome.setValue}
-        />
-        <Text style={styles.label}>E-mail :</Text>
-        <Input
-          keyboardType="email-address"
-          placeholder="E-mail"
-          placeholderTextColor="#B9B9B9"
-          value={email.value}
-          error={email.error}
-          onBlur={email.onBlur}
-          onChange={email.setValue}
-        />
-        <Text style={styles.title}>Contato</Text>
-        <Text style={styles.label}>E-mail Contato :</Text>
-        <Input
-          keyboardType="email-address"
-          placeholder="E-mail Contato"
-          placeholderTextColor="#B9B9B9"
-          value={emailContato.value}
-          error={emailContato.error}
-          onBlur={emailContato.onBlur}
-          onChange={emailContato.setValue}
-        />
-        <Text style={styles.label}>Telefone Contato :</Text>
-        <Input
-          keyboardType="decimal-pad"
-          placeholder="(00) 0.0000-0000"
-          placeholderTextColor="#B9B9B9"
-          value={telefoneContato.value}
-          error={telefoneContato.error}
-          onBlur={telefoneContato.onBlur}
-          onChange={telefoneContato.setValue}
-        />
+      marginTop: 5,
+      marginBottom: 5,
 
-        <TouchableOpacity style={styles.buttonSave}>
-          <Text style={styles.label}>Salvar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonLogout}
-          onPress={() => navigation.navigate("Login", { name: "Login" })}
-        >
-          <Text style={styles.label}>Sair</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonDelete}>
-          <Text style={styles.label}>Deletar Conta</Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <Footer navigation={navigation} type="cliente" />
-    </>
-  );
-}
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: defaultTheme["red-300"],
+    },
+    buttonDelete: {
+      height: 50,
+
+      marginTop: 5,
+      marginBottom: 5,
+
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: defaultTheme["red-500"],
+    },
+    label: {
+      color: defaultTheme["color-9"],
+    },
+  });
+};
+
+export default MyStyles;

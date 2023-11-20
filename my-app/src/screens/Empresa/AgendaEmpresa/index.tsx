@@ -18,7 +18,7 @@ export function AgendaEmpresaE({ navigation }) {
       <Header screen="Agenda" />
       <ScrollView style={styles.mainContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Image source={require("./../../../assets/manage_search.png")} />
+          <Text>Cadastrar Nova Agenda</Text>
         </TouchableOpacity>
         <OpenAppointments navigation={navigation} />
         <BookedAppointments navigation={navigation} />

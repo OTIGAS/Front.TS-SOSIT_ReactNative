@@ -1,35 +1,34 @@
-import { View, ScrollView, TouchableOpacity, Text } from "react-native";
-import { MyStyles } from "./styles";
+import { useContext } from "react";
+import { StyleSheet } from "react-native";
+import { ThemaContext } from "../../../context/ThemeContext";
+import { defaultThemeLight, defaultThemeDark } from "../../../themes/default";
 
-import { Footer } from "../../../components/Footer";
-import { Header } from "../../../components/Header";
-import { Commitment } from "../../../components/Commitment";
+export const MyStyles = () => {
+  const { theme } = useContext(ThemaContext);
 
-export function HistoricoE({ navigation }) {
-  const styles = MyStyles();
+  const defaultTheme = theme === "light" ? defaultThemeLight : defaultThemeDark;
 
-  return (
-    <View style={styles.historico}>
-      <Header screen="Histórico" />
-      <ScrollView>
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-        <Commitment navigation={navigation} />
-      </ScrollView>
-      <TouchableOpacity style={styles.buttonCancel} disabled={true}>
-        <Text>Demarcar</Text>
-      </TouchableOpacity>
-      <Footer navigation={navigation} type="empresa" />
-    </View>
-  );
-}
+  return StyleSheet.create({
+    historico: {
+      flex: 1,
+
+      backgroundColor: defaultTheme["color-1"],
+    },
+    buttonCancel: {
+      height: 50,
+
+      marginTop: 5,
+      marginBottom: 5,
+
+      marginLeft: 30,
+      marginRight: 30,
+
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: defaultTheme["red-300"],
+    },
+  });
+};
+
+export default MyStyles;

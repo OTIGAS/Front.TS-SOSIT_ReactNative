@@ -19,14 +19,30 @@ export function Login({ navigation }) {
 
   useEffect(() => {
     if (login) {
-      console.log(data);
-      if (data.tipo === "cliente") {
+      if (data?.tipo === "cliente") {
         navigation.navigate("PesquisaCliente", { name: "PesquisaCliente" });
-      } else if (data.tipo === "empresa") {
+      } else if (data?.tipo === "empresa") {
         navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
       }
     }
   }, [login]);
+
+  async function handlePress() {
+    if (email.validate() && senha.validate()) {
+      userLogin(email.value, senha.value);
+      if (erro) {
+        openAuthErrorAlert(erro);
+      } else {
+        if (data?.tipo === "cliente") {
+          navigation.navigate("PesquisaCliente", { name: "PesquisaCliente" });
+        } else if (data?.tipo === "empresa") {
+          navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
+        }
+      }
+    } else {
+      openErrorAlert();
+    }
+  }
 
   const openRegisterAlert = () => {
     Alert.alert(
@@ -82,23 +98,6 @@ export function Login({ navigation }) {
       }
     );
   };
-
-  async function handlePress() {
-    if (email.validate() && senha.validate()) {
-      userLogin(email.value, senha.value);
-      if (erro) {
-        openAuthErrorAlert(erro);
-      } else {
-        if (data.tipo === "cliente") {
-          navigation.navigate("PesquisaCliente", { name: "PesquisaCliente" });
-        } else if (data.tipo === "empresa") {
-          navigation.navigate("PesquisaEmpresa", { name: "PesquisaEmpresa" });
-        }
-      }
-    } else {
-      openErrorAlert();
-    }
-  }
 
   const styles = MyStyles();
 
