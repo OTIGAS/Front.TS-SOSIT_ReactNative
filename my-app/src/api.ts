@@ -1,4 +1,4 @@
-export const API_URL = "http://192.168.15.25:3333";
+export const API_URL = "http://10.5.17.9:3333";
 
 type IClienteCadastro = {
   nome: string;
@@ -22,7 +22,7 @@ export function CreateCliente(body: IClienteCadastro) {
             nome: body.nome,
             email: body.email,
             senha: body.senha,
-          },
+          }, 
           contato: {
             nome_contato: body.nome,
             telefone: body.telefone,

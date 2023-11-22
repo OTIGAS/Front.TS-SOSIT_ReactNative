@@ -6,6 +6,7 @@ import {
   ScrollView,
   Alert,
   Text,
+  RefreshControl,
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,6 +27,7 @@ export function PesquisaE({ navigation }) {
   const { token, login } = useContext(UserContext);
 
   const [calendars, setCalendars] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const openListErrorAlert = (error: string) => {
     Alert.alert(
@@ -60,7 +62,7 @@ export function PesquisaE({ navigation }) {
     } else {
       navigation.navigate("Login", { name: "Login" });
     }
-  }, []);
+  }, [refreshing]);
 
   const search = useForm("");
 
@@ -121,24 +123,35 @@ export function PesquisaE({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={styles.container}>
-        {calendars.map((calendar) => (
-          <Calendars
-            key={calendar.id_agenda}
-            nomeAgenda={calendar.nome}
-            nomeServicos={calendar.servico}
-            diaSemana={[
-              calendar.seg[0] ? "Seg" : null,
-              calendar.ter[0] ? "Ter" : null,
-              calendar.qua[0] ? "Qua" : null,
-              calendar.qui[0] ? "Qui" : null,
-              calendar.sex[0] ? "Sex" : null,
-              calendar.sab[0] ? "Sab" : null,
-              calendar.dom[0] ? "Dom" : null,
-            ].join(", ")}
-            onPress={() => handlePressCalendar(calendar.id_agenda)}
-          />
-        ))}
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={() => listAgendasByToken()} />
+        }
+      >
+        {calendars.length ? (
+          calendars.map((calendar) => (
+            <Calendars
+              key={calendar.id_agenda}
+              nomeAgenda={calendar.nome}
+              nomeServicos={calendar.servico}
+              diaSemana={[
+                calendar.seg ? "Seg" : null,
+                calendar.ter ? "Ter" : null,
+                calendar.qua ? "Qua" : null,
+                calendar.qui ? "Qui" : null,
+                calendar.sex ? "Sex" : null,
+                calendar.sab ? "Sab" : null,
+                calendar.dom ? "Dom" : null,
+              ]
+                .filter((day) => day !== null)
+                .join(", ")}
+              onPress={() => handlePressCalendar(calendar.id_agenda)}
+            />
+          ))
+        ) : (
+          <Text>Nenhuma agenda cadastrada</Text>
+        )}
       </ScrollView>
       <Footer type="empresa" navigation={navigation} />
     </View>

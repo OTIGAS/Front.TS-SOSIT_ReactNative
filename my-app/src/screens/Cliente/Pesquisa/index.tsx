@@ -118,14 +118,16 @@ export function PesquisaC({ navigation }) {
             servico={calendar.servico}
             cidade={calendar.cidade}
             semana={[
-              calendar.seg[0] ? "Seg" : null,
-              calendar.ter[0] ? "Ter" : null,
-              calendar.qua[0] ? "Qua" : null,
-              calendar.qui[0] ? "Qui" : null,
-              calendar.sex[0] ? "Sex" : null,
-              calendar.sab[0] ? "Sab" : null,
-              calendar.dom[0] ? "Dom" : null,
-            ].join(", ")}
+              calendar.seg ? "Seg" : null,
+              calendar.ter ? "Ter" : null,
+              calendar.qua ? "Qua" : null,
+              calendar.qui ? "Qui" : null,
+              calendar.sex ? "Sex" : null,
+              calendar.sab ? "Sab" : null,
+              calendar.dom ? "Dom" : null,
+            ]
+              .filter((day) => day !== null)
+              .join(", ")}
             onPress={() => handlePressCalendar(calendar.id_agenda)} 
           />
         ))}
