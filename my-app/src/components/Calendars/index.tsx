@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { MyStyles } from "./styles";
 
 import { TouchableOpacity, View, Text } from "react-native";

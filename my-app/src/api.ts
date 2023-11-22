@@ -6,9 +6,9 @@ type IClienteCadastro = {
   senha: string;
   email_contato: string;
   telefone: string;
-}
+};
 
-export function CreateCliente(body: IClienteCadastro){
+export function CreateCliente(body: IClienteCadastro) {
   return {
     url: API_URL + "/usuario/cliente",
     options: {
@@ -30,8 +30,8 @@ export function CreateCliente(body: IClienteCadastro){
           },
         },
       }),
-    }
-  }
+    },
+  };
 }
 
 type IEmpresaCadastro = {
@@ -103,6 +103,18 @@ export function CreateEmpresa(body: IEmpresaCadastro) {
   };
 }
 
+export function DeleteUsuario(token: string) {
+  return {
+    url: API_URL + "/usuario/deleta",
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    },
+  };
+}
+
 type IAuthentication = {
   email: string;
   senha: string;
@@ -139,10 +151,11 @@ type IUpdateUsuario = {
   email: string;
 };
 
-export function UpdateUsuario({ token, nome, email}: IUpdateUsuario) {
+export function UpdateUsuario({ token, nome, email }: IUpdateUsuario) {
   const usuario = {
-    nome, email
-  }
+    nome,
+    email,
+  };
   return {
     url: API_URL + "/usuario/atualizar-usuario",
     options: {
@@ -151,9 +164,9 @@ export function UpdateUsuario({ token, nome, email}: IUpdateUsuario) {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify({usuario}),
+      body: JSON.stringify({ usuario }),
     },
-  }
+  };
 }
 
 type IUpdateContato = {
@@ -163,10 +176,17 @@ type IUpdateContato = {
   nome_contato: string;
 };
 
-export function UpdateContato({ token, email_contato, telefone, nome_contato}: IUpdateContato) {
+export function UpdateContato({
+  token,
+  email_contato,
+  telefone,
+  nome_contato,
+}: IUpdateContato) {
   const contato = {
-    email_contato, telefone, nome_contato
-  }
+    email_contato,
+    telefone,
+    nome_contato,
+  };
   return {
     url: API_URL + "/usuario/atualizar-contato",
     options: {
@@ -175,7 +195,221 @@ export function UpdateContato({ token, email_contato, telefone, nome_contato}: I
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify({contato}),
+      body: JSON.stringify({ contato }),
     },
-  }
+  };
+}
+
+type IUpdateEndereco = {
+  token: string;
+  cep: string;
+  rua: string;
+  num: string;
+  cidade: string;
+  estado: string;
+};
+
+export function UpdateEndereco({
+  token,
+  cep,
+  rua,
+  num,
+  cidade,
+  estado,
+}: IUpdateEndereco) {
+  const endereco = {
+    cep,
+    rua,
+    num,
+    cidade,
+    estado,
+  };
+  return {
+    url: API_URL + "/usuario/atualizar-endereco",
+    options: {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ endereco }),
+    },
+  };
+}
+
+type IUpdateInfoEmpresa = {
+  token: string;
+  cnpj: string;
+  descricao: string;
+  linkSite: string;
+  imgPerfil: string;
+};
+
+export function UpdateInfoEmpresa({
+  token,
+  cnpj,
+  descricao,
+  linkSite,
+  imgPerfil,
+}: IUpdateInfoEmpresa) {
+  const informacoes_empresa = {
+    cnpj: cnpj,
+    descricao: descricao,
+    link_site: linkSite,
+    img_perfil: imgPerfil,
+  };
+  return {
+    url: API_URL + "/usuario/atualizar-informacoes-empresa",
+    options: {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ informacoes_empresa }),
+    },
+  };
+}
+
+type IUpdateDadosBancarios = {
+  token: string;
+  banco: string;
+  agencia: string;
+  digito: string;
+  tipoConta: string;
+  conta: string;
+};
+
+export function UpdateDadosBancarios({
+  token,
+  banco,
+  agencia,
+  digito,
+  tipoConta,
+  conta,
+}: IUpdateDadosBancarios) {
+  const dados_bancarios = {
+    banco: banco,
+    agencia: agencia,
+    digito: digito,
+    tipo_conta: tipoConta,
+    conta: conta,
+  };
+  return {
+    url: API_URL + "/usuario/atualizar-dados-bancarios",
+    options: {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ dados_bancarios }),
+    },
+  };
+}
+
+
+type ICreateAgenda = {
+  token: string;
+  nome: string;
+  servico: string;
+  descricao: string;
+};
+
+export function CreateAgenda({
+  token,
+  nome,
+  servico,
+  descricao,
+}: ICreateAgenda) {
+  const agenda = {
+    nome,
+    servico,
+    descricao,
+  };
+  return {
+    url: API_URL + "/agenda",
+    options: {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ data: { agenda } }),
+    },
+  };
+}
+
+export function ListAllAgendas() {
+  return {
+    url: API_URL + "/agenda/listar-todas",
+    options: {
+      method: "GET",
+    },
+  };
+}
+
+export function ListAgenda(token: string) {
+  return {
+    url: API_URL + "/agenda/listar-todas-por-token",
+    options: {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    },
+  };
+}
+
+export function ListAgendaByName(nome: string) {
+  return {
+    url: API_URL + `/agenda/listar-por-nome/${nome}`,
+    options: {
+      method: "GET",
+    },
+  };
+}
+
+export function ListAgendaById(id: string) {
+  return {
+    url: API_URL + `/agenda/listar-por-id/${JSON.parse(id)}`,
+    options: {
+      method: "GET",
+    },
+  };
+}
+
+type IUpdateAgenda = {
+  token: string;
+  idAgenda: string;
+  horarios:
+    | {
+        seg: { inicio: string; fim: string }[];
+        ter: { inicio: string; fim: string }[];
+        qua: { inicio: string; fim: string }[];
+        qui: { inicio: string; fim: string }[];
+        sex: { inicio: string; fim: string }[];
+        sab: { inicio: string; fim: string }[];
+        dom: { inicio: string; fim: string }[];
+      }
+    | [];
+};
+
+export function UpdateAgenda({ token, idAgenda, horarios }: IUpdateAgenda) {
+  return {
+    url: API_URL + "/agenda/atualizar-horarios",
+    options: {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        data: {
+          idAgenda,
+          horarios,
+        },
+      }),
+    },
+  };
 }

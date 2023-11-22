@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity, Text } from "react-native";
+import { ScrollView, TouchableOpacity, Text, Alert } from "react-native";
 import { MyStyles } from "./styles";
 
 import { Footer } from "../../../components/Footer";
@@ -6,13 +6,24 @@ import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 
 import useForm from "../../../hooks/useForm";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../../context/UserContext";
+import {
+  DeleteUsuario,
+  UpdateContato,
+  UpdateDadosBancarios,
+  UpdateEndereco,
+  UpdateInfoEmpresa,
+  UpdateUsuario,
+} from "../../../api";
 
 export function PerfilE({ navigation }) {
   const styles = MyStyles();
 
+  const { data, token, login, userLogout } = useContext(UserContext);
+
   const nome = useForm("");
   const email = useForm("email");
-  const senha = useForm("password");
 
   const nomeContato = useForm("");
   const emailContato = useForm("email");
@@ -34,6 +45,235 @@ export function PerfilE({ navigation }) {
   const digito = useForm("");
   const tipoConta = useForm("");
   const conta = useForm("");
+
+  useEffect(() => {
+    if (login) {
+      if (data) {
+        nome.setValue(data.nome);
+        email.setValue(data.email);
+
+        nomeContato.setValue(data.nome_contato);
+        telefoneContato.setValue(data.telefone);
+        emailContato.setValue(data.email_contato);
+
+        cep.setValue(data.cep);
+        estado.setValue(data.estado);
+        cidade.setValue(data.cidade);
+        rua.setValue(data.rua);
+        num.setValue(data.num);
+
+        cnpj.setValue(data.cnpj);
+        descricao.setValue(data.descricao);
+        linkSite.setValue(data.link_site);
+        imgPerfil.setValue(data.img_perfil);
+
+        banco.setValue(data.banco);
+        agencia.setValue(data.agencia);
+        digito.setValue(data.digito);
+        tipoConta.setValue(data.tipo_conta);
+        conta.setValue(data.conta);
+      }
+    } else {
+      navigation.navigate("Login", { name: "Login" });
+    }
+  }, [data]);
+
+  function openAlertPerfil(mensagem: string) {
+    Alert.alert(
+      mensagem,
+      null,
+      [
+        {
+          text: "Ok",
+          onPress: () => null,
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  }
+
+  const openErrorAlert = () => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      "Necessário preencher todos os campos",
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  const openConfirmAlert = () => {
+    Alert.alert(
+      "Tem certeza que que apagar sua conta.",
+      null,
+      [{ text: "Ok", onPress: () => handlePressDeleteUsuario() }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  async function handlePressDeleteUsuario() {
+    if (token) {
+      const { url, options } = DeleteUsuario(token);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+        userLogout();
+        navigation.navigate("Login", { name: "Login" });
+      } else {
+        openAlertPerfil("Falha ao deletar Usuário.");
+      }
+    }
+  }
+
+  async function handlePressUpdateUsuario() {
+    if (nome.validate() && email.validate()) {
+      const body = {
+        nome: nome.value,
+        email: email.value,
+        token,
+      };
+      const { url, options } = UpdateUsuario(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+      } else {
+        openAlertPerfil("Falha ao atualizar Usuário.");
+      }
+    } else {
+      openErrorAlert();
+    }
+  }
+
+  async function handlePressUpdateContato() {
+    if (emailContato.validate() && telefoneContato.validate()) {
+      const body = {
+        email_contato: emailContato.value,
+        telefone: email.value,
+        nome_contato: data.nome,
+        token,
+      };
+      const { url, options } = UpdateContato(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+      } else {
+        openAlertPerfil("Falha ao atualizar Contato.");
+      }
+    } else {
+      openErrorAlert();
+    }
+  }
+
+  async function handlePressUpdateEndereco() {
+    if (
+      cep.validate() &&
+      estado.validate() &&
+      cidade.validate() &&
+      rua.validate() &&
+      num.validate()
+    ) {
+      const body = {
+        cep: cep.value,
+        estado: estado.value,
+        cidade: cidade.value,
+        rua: rua.value,
+        num: num.value,
+        token,
+      };
+      const { url, options } = UpdateEndereco(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+      } else {
+        openAlertPerfil("Falha ao atualizar Endereço.");
+      }
+    } else {
+      openErrorAlert();
+    }
+  }
+
+  async function handlePressUpdateInfoEmpresa() {
+    if (
+      cnpj.validate() &&
+      descricao.validate() &&
+      linkSite.validate() &&
+      imgPerfil.validate()
+    ) {
+      const body = {
+        cnpj: cnpj.value,
+        descricao: descricao.value,
+        linkSite: linkSite.value,
+        imgPerfil: imgPerfil.value,
+        token,
+      };
+      const { url, options } = UpdateInfoEmpresa(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+      } else {
+        openAlertPerfil("Falha ao atualizar Informações da Empresa.");
+      }
+    } else {
+      openErrorAlert();
+    }
+  }
+
+  async function handlePressUpdateDadosBancarios() {
+    if (
+      banco.validate() &&
+      agencia.validate() &&
+      digito.validate() &&
+      tipoConta.validate() &&
+      conta.validate()
+    ) {
+      const body = {
+        banco: banco.value,
+        agencia: agencia.value,
+        digito: digito.value,
+        tipoConta: tipoConta.value,
+        conta: conta.value,
+        token,
+      };
+      const { url, options } = UpdateDadosBancarios(body);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+      } else {
+        openAlertPerfil("Falha ao atualizar Dados Bancários.");
+      }
+    } else {
+      openErrorAlert();
+    }
+  }
 
   return (
     <>
@@ -58,15 +298,12 @@ export function PerfilE({ navigation }) {
           onBlur={email.onBlur}
           onChange={email.setValue}
         />
-        <Input
-          keyboardType="default"
-          placeholder="Senha"
-          placeholderTextColor="#B9B9B9"
-          value={senha.value}
-          error={senha.error}
-          onBlur={senha.onBlur}
-          onChange={senha.setValue}
-        />
+        <TouchableOpacity
+          style={styles.buttonSave}
+          onPress={handlePressUpdateUsuario}
+        >
+          <Text style={styles.label}>Salvar dados Usuario</Text>
+        </TouchableOpacity>
         <Text style={styles.title}>Contato</Text>
         <Input
           keyboardType="default"
@@ -95,7 +332,12 @@ export function PerfilE({ navigation }) {
           onBlur={telefoneContato.onBlur}
           onChange={telefoneContato.setValue}
         />
-
+        <TouchableOpacity
+          style={styles.buttonSave}
+          onPress={handlePressUpdateContato}
+        >
+          <Text style={styles.label}>Salvar dados Contato</Text>
+        </TouchableOpacity>
         <Text style={styles.title}>Endereço</Text>
         <Input
           keyboardType="default"
@@ -142,6 +384,12 @@ export function PerfilE({ navigation }) {
           onBlur={num.onBlur}
           onChange={num.setValue}
         />
+        <TouchableOpacity
+          style={styles.buttonSave}
+          onPress={handlePressUpdateEndereco}
+        >
+          <Text style={styles.label}>Salvar dados Endereço</Text>
+        </TouchableOpacity>
 
         <Text style={styles.title}>Informações da Empresa</Text>
         <Input
@@ -180,6 +428,12 @@ export function PerfilE({ navigation }) {
           onBlur={imgPerfil.onBlur}
           onChange={imgPerfil.setValue}
         />
+        <TouchableOpacity
+          style={styles.buttonSave}
+          onPress={handlePressUpdateInfoEmpresa}
+        >
+          <Text style={styles.label}>Salvar dados Informações</Text>
+        </TouchableOpacity>
 
         <Text style={styles.title}>Dados Bancários</Text>
         <Input
@@ -227,17 +481,26 @@ export function PerfilE({ navigation }) {
           onBlur={conta.onBlur}
           onChange={conta.setValue}
         />
-
-        <TouchableOpacity style={styles.buttonSave}>
-          <Text>Salvar</Text>
+        <TouchableOpacity
+          style={styles.buttonSave}
+          onPress={handlePressUpdateDadosBancarios}
+        >
+          <Text style={styles.label}>Salvar dados Informações</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonLogout}
-          onPress={() => navigation.navigate("Login", { name: "Login" })}
+          onPress={() => {
+            userLogout();
+            navigation.navigate("Login", { name: "Login" });
+          }}
         >
           <Text>Sair</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonDelete}>
+        <TouchableOpacity
+          style={styles.buttonDelete}
+          onPress={openConfirmAlert}
+        >
           <Text>Deletar Conta</Text>
         </TouchableOpacity>
       </ScrollView>

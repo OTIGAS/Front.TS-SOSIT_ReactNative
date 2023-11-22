@@ -1,6 +1,7 @@
 export interface GetCliente {
   id_usuario: number;
   nome: string;
+  email: string;
   tipo: string;
   id_contato: number;
   email_contato: string;

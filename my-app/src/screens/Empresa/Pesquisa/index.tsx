@@ -1,23 +1,66 @@
+import { useContext, useState, useEffect } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   Image,
   ScrollView,
   Alert,
+  Text,
 } from "react-native";
-import { useEffect, useState } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { MyStyles } from "./styles";
+
+import useForm from "../../../hooks/useForm";
+import { UserContext } from "../../../context/UserContext";
 
 import { Input } from "../../../components/Input";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { Calendars } from "../../../components/Calendars";
-import useForm from "../../../hooks/useForm";
+import { ListAgenda, ListAgendaByName } from "../../../api";
 
 export function PesquisaE({ navigation }) {
-  useEffect(() => {}, []);
   const styles = MyStyles();
+  const { token, login } = useContext(UserContext);
+
+  const [calendars, setCalendars] = useState([]);
+
+  const openListErrorAlert = (error: string) => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      error,
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  async function listAgendasByToken() {
+    const { url, options } = ListAgenda(token);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    if (json.erro) {
+      openListErrorAlert(json.erro);
+    } else {
+      setCalendars(json);
+    }
+  }
+
+  useEffect(() => {
+    AsyncStorage.removeItem("agenda", (error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+    if (login && token) {
+      listAgendasByToken();
+    } else {
+      navigation.navigate("Login", { name: "Login" });
+    }
+  }, []);
 
   const search = useForm("");
 
@@ -34,18 +77,22 @@ export function PesquisaE({ navigation }) {
 
   async function handlePressSearch() {
     if (search.value) {
-      console.log("Pesquisar ", search);
+      const { url, options } = ListAgendaByName(search.value);
+      const response = await fetch(url, options);
+      const json = await response.json();
+      if (json.erro) {
+        openListErrorAlert(json.erro);
+      } else {
+        setCalendars(json);
+      }
     } else {
       openErrorAlert();
     }
   }
 
-  async function handlePressCalendarAdd() {
-    navigation.navigate("CadastroAgenda", { name: "CadastroAgenda" });
-  }
-
-  async function handlePressCalendar() {
-    console.log("Calendario");
+  async function handlePressCalendar(idAgenda: number) {
+    await AsyncStorage.setItem("agenda", JSON.stringify(idAgenda));
+    navigation.navigate("AlterarAgenda", { name: "AlterarAgenda" });
   }
 
   return (
@@ -66,45 +113,33 @@ export function PesquisaE({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={handlePressCalendarAdd}
+          onPress={() => {
+            navigation.navigate("CadastroAgenda", { name: "CadastroAgenda" });
+          }}
         >
           <Image source={require("./../../../assets/calendar_add.png")} />
         </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.container}>
-        <Calendars
-          nomeAgenda="Agenda 02"
-          nomeServicos="Serviço 02"
-          diaSemana="Ter, Qui, Sáb"
-          onPress={() => handlePressCalendar()}
-        />
-        <Calendars
-          nomeAgenda="Agenda 03"
-          nomeServicos="Serviço 03"
-          diaSemana="Seg, Sex"
-          onPress={() => handlePressCalendar()}
-        />
-        <Calendars
-          nomeAgenda="Agenda 04"
-          nomeServicos="Serviço 04"
-          diaSemana="Qua, Sex, Dom"
-          onPress={() => handlePressCalendar()}
-        />
-        <Calendars
-          nomeAgenda="Agenda 05"
-          nomeServicos="Serviço 05"
-          diaSemana="Seg, Ter, Qui"
-          onPress={() => handlePressCalendar()}
-        />
-        <Calendars
-          nomeAgenda="Agenda 06"
-          nomeServicos="Serviço 06"
-          diaSemana="Sex, Sáb"
-          onPress={() => handlePressCalendar()}
-        />
+        {calendars.map((calendar) => (
+          <Calendars
+            key={calendar.id_agenda}
+            nomeAgenda={calendar.nome}
+            nomeServicos={calendar.servico}
+            diaSemana={[
+              calendar.seg[0] ? "Seg" : null,
+              calendar.ter[0] ? "Ter" : null,
+              calendar.qua[0] ? "Qua" : null,
+              calendar.qui[0] ? "Qui" : null,
+              calendar.sex[0] ? "Sex" : null,
+              calendar.sab[0] ? "Sab" : null,
+              calendar.dom[0] ? "Dom" : null,
+            ].join(", ")}
+            onPress={() => handlePressCalendar(calendar.id_agenda)}
+          />
+        ))}
       </ScrollView>
-
       <Footer type="empresa" navigation={navigation} />
     </View>
   );

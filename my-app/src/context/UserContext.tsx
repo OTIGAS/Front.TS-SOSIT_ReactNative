@@ -14,7 +14,7 @@ export type UserContext = {
   erro: string;
   setErro: (text: string) => void;
 
-  data?: GetCliente | GetEmpresa | null;
+  data?: any;
   token?: string;
 
   login?: boolean;
@@ -27,7 +27,7 @@ export type UserContext = {
 export const UserContext = createContext<UserContext | null>(null);
 
 export const UserStorage = ({ children }: PropsWithChildren) => {
-  const [data, setData] = useState<GetCliente | GetEmpresa | null>(null);
+  const [data, setData] = useState<any>(null);
   const [token, setToken] = useState<string | null>(null);
   const [login, setLogin] = useState<boolean | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -56,6 +56,7 @@ export const UserStorage = ({ children }: PropsWithChildren) => {
           const json = await response.json();
           setData(json);
           setLogin(true);
+          setToken(token);
         } catch (error) {
           console.log(error);
         } finally {

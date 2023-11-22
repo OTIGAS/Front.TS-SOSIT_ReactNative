@@ -6,29 +6,74 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { useState } from "react";
-import { MyStyles } from "./styles";
+import { useContext, useEffect, useState } from "react";
 
 import SelectDropdown from "react-native-select-dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { MyStyles } from "./styles";
+
+import { UserContext } from "../../../context/UserContext";
+
+import useForm from "../../../hooks/useForm";
+import { ListAllAgendas } from "../../../api";
 
 import { Input } from "../../../components/Input";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { SearchCalendar } from "../../../components/SearchCalendar";
-import useForm from "../../../hooks/useForm";
 
 export function PesquisaC({ navigation }) {
   const styles = MyStyles();
+
+  const { token, login } = useContext(UserContext);
+
+  const [calendars, setCalendars] = useState([]);
+
+  const openListErrorAlert = (error: string) => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      error,
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  async function listAllAgendas() {
+    const { url, options } = ListAllAgendas();
+    const response = await fetch(url, options);
+    const json = await response.json();
+    if (json.erro) {
+      openListErrorAlert(json.erro);
+    } else {
+      setCalendars(json);
+      console.log(json);
+    }
+  }
+
+  useEffect(() => {
+    AsyncStorage.removeItem("agenda", (error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+    if (login && token) {
+      listAllAgendas();
+    } else {
+      navigation.navigate("Login", { name: "Login" });
+    }
+  }, []);
 
   const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(
     "Serviço"
   );
   const search = useForm("");
 
-  async function handlePressCalendar() {
-    navigation.navigate("AgendaEmpresaCliente", {
-      name: "AgendaEmpresaCliente",
-    });
+  async function handlePressCalendar(idAgenda: number) {
+    await AsyncStorage.setItem("agenda", JSON.stringify(idAgenda));
+    navigation.navigate("AgendaEmpresaCliente", { name: "AgendaEmpresaCliente" });
   }
 
   return (
@@ -65,13 +110,26 @@ export function PesquisaC({ navigation }) {
       </View>
 
       <ScrollView style={styles.container}>
-        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 01" servico="Serviço 01" cidade="Cidade 01" semana="Seg, Qua, Sex" />
-        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 02" servico="Serviço 02" cidade="Cidade 02" semana="Ter, Qui, Sab" />
-        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 03" servico="Serviço 03" cidade="Cidade 03" semana="Seg, Ter, Sex" />
-        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 04" servico="Serviço 04" cidade="Cidade 04" semana="Qua, Qui, Sab" />
-        <SearchCalendar typeSearch={typeSearch} empresa="Empresa 05" servico="Serviço 05" cidade="Cidade 05" semana="Ter, Qua, Sab" />
+        {calendars.map((calendar) => (
+          <SearchCalendar
+            key={calendar.id_agenda}
+            typeSearch={typeSearch}
+            empresa={calendar.nome_empresa}
+            servico={calendar.servico}
+            cidade={calendar.cidade}
+            semana={[
+              calendar.seg[0] ? "Seg" : null,
+              calendar.ter[0] ? "Ter" : null,
+              calendar.qua[0] ? "Qua" : null,
+              calendar.qui[0] ? "Qui" : null,
+              calendar.sex[0] ? "Sex" : null,
+              calendar.sab[0] ? "Sab" : null,
+              calendar.dom[0] ? "Dom" : null,
+            ].join(", ")}
+            onPress={() => handlePressCalendar(calendar.id_agenda)} 
+          />
+        ))}
       </ScrollView>
-
       <Footer type="cliente" navigation={navigation} />
     </View>
   );

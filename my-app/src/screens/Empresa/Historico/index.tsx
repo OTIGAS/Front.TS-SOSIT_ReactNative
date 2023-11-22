@@ -1,5 +1,6 @@
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { MyStyles } from "./styles";
+
 import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import { Commitment } from "../../../components/Commitment";

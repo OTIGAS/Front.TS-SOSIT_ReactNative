@@ -1,12 +1,16 @@
 import { useContext, useEffect } from "react";
+
 import { ScrollView, TouchableOpacity, Text, Alert } from "react-native";
 import { MyStyles } from "./styles";
+
 import { UserContext } from "../../../context/UserContext";
+
 import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
+
 import useForm from "../../../hooks/useForm";
-import { UpdateUsuario, UpdateContato } from "../../../api";
+import { UpdateUsuario, UpdateContato, DeleteUsuario } from "../../../api";
 
 export function PerfilC({ navigation }) {
   const styles = MyStyles();
@@ -59,6 +63,35 @@ export function PerfilC({ navigation }) {
       }
     );
   };
+
+  const openConfirmAlert = () => {
+    Alert.alert(
+      "Tem certeza que que apagar sua conta.",
+      null,
+      [{ text: "Ok", onPress: () => handlePressDeleteUsuario() }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  async function handlePressDeleteUsuario() {
+    if (token) {
+      const { url, options } = DeleteUsuario(token);
+      const response = await fetch(url, options);
+      const json = await response.json();
+
+      if (json.erro) {
+        openAlertPerfil(json.erro);
+      } else if (json.mensagem) {
+        openAlertPerfil(json.mensagem);
+        userLogout();
+        navigation.navigate("Login", { name: "Login" });
+      } else {
+        openAlertPerfil("Falha ao deletar Usuário.");
+      }
+    }
+  }
 
   async function handlePressUpdateUsuario() {
     if (nome.validate() && email.validate()) {
@@ -169,7 +202,7 @@ export function PerfilC({ navigation }) {
         >
           <Text style={styles.label}>Sair</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonDelete}>
+        <TouchableOpacity style={styles.buttonDelete} onPress={() => openConfirmAlert()}>
           <Text style={styles.label}>Deletar Conta</Text>
         </TouchableOpacity>
       </ScrollView>

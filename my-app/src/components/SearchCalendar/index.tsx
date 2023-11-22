@@ -30,7 +30,7 @@ export const SearchCalendar = (props: SearchCalendarProps) => {
     <TouchableOpacity style={styles.mainContainer} onPress={props.onPress}>
       <View style={styles.subContainer}>
         <Text style={stylesCompany}>{props.empresa}</Text>
-        <Text style={stylesService}>{props.semana}</Text>
+        <Text style={stylesService}>{props.servico}</Text>
       </View>
       <View style={styles.subContainer}>
         <Text style={styles.textOne}>{props.cidade}</Text>

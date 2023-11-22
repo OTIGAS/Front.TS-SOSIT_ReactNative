@@ -16,6 +16,8 @@ import { PerfilE } from "./src/screens/Empresa/Perfil";
 import { PesquisaE } from "./src/screens/Empresa/Pesquisa";
 import { HistoricoE } from "./src/screens/Empresa/Historico";
 import { AgendaEmpresaE } from "./src/screens/Empresa/AgendaEmpresa";
+import { CadastroAgendaE } from "./src/screens/Empresa/CadastroAgenda";
+import { AlterarAgendaE } from "./src/screens/Empresa/AlterarAgenda";
 
 import { ThemaStorage } from "./src/context/ThemeContext";
 import { UserStorage } from "./src/context/UserContext";
@@ -43,7 +45,8 @@ export default function App() {
               <Stack.Screen name="HistoricoEmpresa" component={HistoricoE} />
               <Stack.Screen name="CadastroEmpresa" component={CadastroE} />
               <Stack.Screen name="AgendaEmpresa" component={AgendaEmpresaE} />
-
+              <Stack.Screen name="CadastroAgenda" component={CadastroAgendaE} />
+              <Stack.Screen name="AlterarAgenda" component={AlterarAgendaE} />
             </Stack.Navigator>
           </ThemaStorage>    
         </UserStorage>

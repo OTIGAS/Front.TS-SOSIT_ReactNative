@@ -34,4 +34,3 @@ export const MyStyles = () => {
 };
 
 export default MyStyles;
-
