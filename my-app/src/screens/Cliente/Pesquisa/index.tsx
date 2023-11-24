@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  RefreshControl,
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 
@@ -28,30 +29,14 @@ export function PesquisaC({ navigation }) {
 
   const { token, login } = useContext(UserContext);
 
+  const search = useForm("");
+
+  const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(
+    "Serviço"
+  );
+
   const [calendars, setCalendars] = useState([]);
-
-  const openListErrorAlert = (error: string) => {
-    Alert.alert(
-      "Falha ao autenticar.",
-      error,
-      [{ text: "Ok", onPress: () => null }],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
-  async function listAllAgendas() {
-    const { url, options } = ListAllAgendas();
-    const response = await fetch(url, options);
-    const json = await response.json();
-    if (json.erro) {
-      openListErrorAlert(json.erro);
-    } else {
-      setCalendars(json);
-      console.log(json);
-    }
-  }
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     AsyncStorage.removeItem("agenda", (error) => {
@@ -66,15 +51,35 @@ export function PesquisaC({ navigation }) {
     }
   }, []);
 
-  const [typeSearch, setTypeSearch] = useState<"Serviço" | "Empresa">(
-    "Serviço"
-  );
-  const search = useForm("");
+  async function listAllAgendas() {
+    const { url, options } = ListAllAgendas();
+    const response = await fetch(url, options);
+    const json = await response.json();
+    if (json.erro) {
+      openListErrorAlert(json.erro);
+    } else {
+      setCalendars(json);
+      console.log(json);
+    }
+  }
 
   async function handlePressCalendar(idAgenda: number) {
     await AsyncStorage.setItem("agenda", JSON.stringify(idAgenda));
-    navigation.navigate("AgendaEmpresaCliente", { name: "AgendaEmpresaCliente" });
+    navigation.navigate("AgendaEmpresaCliente", {
+      name: "AgendaEmpresaCliente",
+    });
   }
+
+  const openListErrorAlert = (error: string) => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      error,
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
 
   return (
     <View style={styles.home}>
@@ -109,7 +114,15 @@ export function PesquisaC({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => listAllAgendas()}
+          />
+        }
+      >
         {calendars.map((calendar) => (
           <SearchCalendar
             key={calendar.id_agenda}
@@ -128,7 +141,7 @@ export function PesquisaC({ navigation }) {
             ]
               .filter((day) => day !== null)
               .join(", ")}
-            onPress={() => handlePressCalendar(calendar.id_agenda)} 
+            onPress={() => handlePressCalendar(calendar.id_agenda)}
           />
         ))}
       </ScrollView>

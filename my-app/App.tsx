@@ -19,8 +19,11 @@ import { AgendaEmpresaE } from "./src/screens/Empresa/AgendaEmpresa";
 import { CadastroAgendaE } from "./src/screens/Empresa/CadastroAgenda";
 import { AlterarAgendaE } from "./src/screens/Empresa/AlterarAgenda";
 
+import { LanguageStorage } from "./src/context/LanguageContext";
 import { ThemaStorage } from "./src/context/ThemeContext";
 import { UserStorage } from "./src/context/UserContext";
+
+import "./src/i18n"
 
 const Stack = createNativeStackNavigator();
 
@@ -30,25 +33,27 @@ export default function App() {
       
       <NavigationContainer >
         <UserStorage>
-          <ThemaStorage>
-            <Stack.Navigator screenOptions={{ headerShown:false}}>
-              <Stack.Screen name="Login" component={Login} />
+          <LanguageStorage>
+            <ThemaStorage>
+              <Stack.Navigator screenOptions={{ headerShown:false}}>
+                <Stack.Screen name="Login" component={Login} />
 
-              <Stack.Screen name="PesquisaCliente" component={PesquisaC} />
-              <Stack.Screen name="PerfilCliente" component={PerfilC} />
-              <Stack.Screen name="HistoricoCliente" component={HistoricoC} />
-              <Stack.Screen name="CadastroCliente" component={CadastroC} />
-              <Stack.Screen name="AgendaEmpresaCliente" component={AgendaEmpresaC} />
+                <Stack.Screen name="PesquisaCliente" component={PesquisaC} />
+                <Stack.Screen name="PerfilCliente" component={PerfilC} />
+                <Stack.Screen name="HistoricoCliente" component={HistoricoC} />
+                <Stack.Screen name="CadastroCliente" component={CadastroC} />
+                <Stack.Screen name="AgendaEmpresaCliente" component={AgendaEmpresaC} />
 
-              <Stack.Screen name="PesquisaEmpresa" component={PesquisaE} />
-              <Stack.Screen name="PerfilEmpresa" component={PerfilE} />
-              <Stack.Screen name="HistoricoEmpresa" component={HistoricoE} />
-              <Stack.Screen name="CadastroEmpresa" component={CadastroE} />
-              <Stack.Screen name="AgendaEmpresa" component={AgendaEmpresaE} />
-              <Stack.Screen name="CadastroAgenda" component={CadastroAgendaE} />
-              <Stack.Screen name="AlterarAgenda" component={AlterarAgendaE} />
-            </Stack.Navigator>
-          </ThemaStorage>    
+                <Stack.Screen name="PesquisaEmpresa" component={PesquisaE} />
+                <Stack.Screen name="PerfilEmpresa" component={PerfilE} />
+                <Stack.Screen name="HistoricoEmpresa" component={HistoricoE} />
+                <Stack.Screen name="CadastroEmpresa" component={CadastroE} />
+                <Stack.Screen name="AgendaEmpresa" component={AgendaEmpresaE} />
+                <Stack.Screen name="CadastroAgenda" component={CadastroAgendaE} />
+                <Stack.Screen name="AlterarAgenda" component={AlterarAgendaE} />
+              </Stack.Navigator>
+            </ThemaStorage>
+          </LanguageStorage>    
         </UserStorage>
       </NavigationContainer>
         

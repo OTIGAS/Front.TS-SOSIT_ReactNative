@@ -14,6 +14,17 @@ export const MyStyles = () => {
 
       padding: 30,
     },
+    button: {
+      height: 50,
+
+      marginTop: 5,
+      marginBottom: 5,
+
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: defaultTheme["blue-500"],
+    },
   });
 };
 

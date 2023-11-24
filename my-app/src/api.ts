@@ -1,4 +1,4 @@
-export const API_URL = "http://10.5.17.9:3333";
+export const API_URL = "http://192.168.15.25:3333";
 
 type IClienteCadastro = {
   nome: string;
@@ -413,3 +413,20 @@ export function UpdateAgenda({ token, idAgenda, horarios }: IUpdateAgenda) {
     },
   };
 }
+
+export function ListAgendaTimeByDate(idAgenda: string, dataCompleta: string) {
+  return {
+    url: API_URL + "/agenda/listar-por-dia",
+    options: {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          idAgenda,
+          dataCompleta,
+      }),
+    },
+  };
+}
+

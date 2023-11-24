@@ -2,7 +2,7 @@ import { Text, View } from 'react-native'
 
 import { MyStyles } from "./styles";
 
-export function OpenAppointments({ navigation }) {
+export function OpenAppointments({ init, end }) {
   const styles = MyStyles();
 
   return (
@@ -13,8 +13,8 @@ export function OpenAppointments({ navigation }) {
         <Text>Fim</Text>
       </View>
       <View style={styles.subContainer}>
-        <Text>09:00</Text>
-        <Text>10:00</Text>
+        <Text>{init}</Text>
+        <Text>{end}</Text>
       </View>
     </View>
   );

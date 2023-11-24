@@ -1,0 +1,46 @@
+{
+  "translation": {
+    "page sign in": "Sign in", 
+    "sign in i email": "E-mail", 
+    "sign in i password": "Password", 
+    "sign in b submit": "Submit", 
+    "sign in l registration": "Don't have an account? Register", 
+    "sign in l forgot password": "I forgot my password", 
+    "sign in v l failed to authenticate": "Failed to authenticate", 
+    "sign in v l fields must be filled in": "All fields must be filled in", 
+    "sign in v l create your account": "Create your account", 
+    "sign in v l choose the registration method": "Choose the registration method", 
+    "sign in v b customer": "Customer", 
+    "sign in v b company": "Company", 
+    "sign in v l call to": "Call to: ", 
+    "sign in v l number": "(00) 0.0000-0000", 
+
+    "page register customer": "Register", 
+    "register customer l customer": "Customer", 
+    "register customer i name": "Name", 
+    "register customer i email": "E-mail", 
+    "register customer i password": "Password", 
+    "register customer l contact": "Contact", 
+    "register customer i contact email": "Contact email", 
+    "register customer b register": "Register", 
+    "register customer b cancel": "Cancel", 
+    "register customer v l failed to register": "Failed to register", 
+    "register customer v l all fields must be filled in": "All fields must be filled in", 
+    "register customer v l ok": "Ok", 
+
+    "page register company": "Register", 
+    "register company l company": "Company", 
+    "register company i name": "Name", 
+    "register company i email": "E-mail", 
+    "register company i password": "Password", 
+    "register company l contact": "Contact", 
+    "register company i name of contact person": "Name of contact person", 
+    "register company i contact email": "Contact email", 
+
+    "register company b register": "Register", 
+    "register company b cancel": "Cancel", 
+    "register company v l failed to register": "Failed to register", 
+    "register company v l all fields must be filled in": "All fields must be filled in", 
+    "register company v l ok": "Ok"
+  }
+}

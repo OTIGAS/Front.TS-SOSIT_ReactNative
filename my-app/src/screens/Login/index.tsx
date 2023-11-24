@@ -11,7 +11,12 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
+import { useTranslation } from "react-i18next";
+
 export function Login({ navigation }) {
+  const { t } = useTranslation();
+  const styles = MyStyles();
+
   const email = useForm("email");
   const senha = useForm("password");
 
@@ -44,6 +49,28 @@ export function Login({ navigation }) {
     }
   }
 
+  const openErrorAlert = () => {
+    Alert.alert(
+      t("sign in v l failed to authenticate"),
+      t("sign in v l fields must be filled in"),
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  const openAuthErrorAlert = (error: string) => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      error,
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
   const openRegisterAlert = () => {
     Alert.alert(
       "Crie uma conta.",
@@ -66,28 +93,6 @@ export function Login({ navigation }) {
     );
   };
 
-  const openErrorAlert = () => {
-    Alert.alert(
-      "Falha ao autenticar.",
-      "Necessário preencher todos os campos",
-      [{ text: "Ok", onPress: () => null }],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
-  const openAuthErrorAlert = (error: string) => {
-    Alert.alert(
-      "Falha ao autenticar.",
-      error,
-      [{ text: "Ok", onPress: () => null }],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
   const openForgotMyPasswordAlert = () => {
     Alert.alert(
       "Ligue para o numero :",
@@ -99,11 +104,9 @@ export function Login({ navigation }) {
     );
   };
 
-  const styles = MyStyles();
-
   return (
     <>
-      <Header screen="Login" />
+      <Header screen={t("page sign in")} />
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -112,7 +115,7 @@ export function Login({ navigation }) {
         <View style={styles.sub_container}>
           <Input
             keyboardType="email-address"
-            placeholder="E-mail"
+            placeholder={t("sign in i email")}
             placeholderTextColor="#B9B9B9"
             value={email.value}
             error={email.error}
@@ -123,7 +126,7 @@ export function Login({ navigation }) {
           <Input
             keyboardType="default"
             secureTextEntry={true}
-            placeholder="Senha"
+            placeholder={t("sign in i password")}
             placeholderTextColor="#B9B9B9"
             value={senha.value}
             error={senha.error}
@@ -131,13 +134,13 @@ export function Login({ navigation }) {
             onChange={senha.setValue}
           />
 
-          <Button onPress={handlePress}>Enviar</Button>
+          <Button onPress={handlePress}>{t("sign in b submit")}</Button>
 
           <Text style={styles.label} onPress={openRegisterAlert}>
-            Não tem uma conta? Cadastre-se
+            {t("sign in l registration")}
           </Text>
           <Text style={styles.label} onPress={openForgotMyPasswordAlert}>
-            Esqueci minha senha
+            {t("sign in l forgot password")}
           </Text>
         </View>
       </View>

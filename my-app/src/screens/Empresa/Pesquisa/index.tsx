@@ -13,43 +13,25 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { MyStyles } from "./styles";
 
-import useForm from "../../../hooks/useForm";
 import { UserContext } from "../../../context/UserContext";
+
+import { ListAgenda, ListAgendaByName } from "../../../api";
+
+import useForm from "../../../hooks/useForm";
 
 import { Input } from "../../../components/Input";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { Calendars } from "../../../components/Calendars";
-import { ListAgenda, ListAgendaByName } from "../../../api";
 
 export function PesquisaE({ navigation }) {
   const styles = MyStyles();
   const { token, login } = useContext(UserContext);
+  
+  const search = useForm("");
 
   const [calendars, setCalendars] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
-  const openListErrorAlert = (error: string) => {
-    Alert.alert(
-      "Falha ao autenticar.",
-      error,
-      [{ text: "Ok", onPress: () => null }],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
-  async function listAgendasByToken() {
-    const { url, options } = ListAgenda(token);
-    const response = await fetch(url, options);
-    const json = await response.json();
-    if (json.erro) {
-      openListErrorAlert(json.erro);
-    } else {
-      setCalendars(json);
-    }
-  }
 
   useEffect(() => {
     AsyncStorage.removeItem("agenda", (error) => {
@@ -64,18 +46,16 @@ export function PesquisaE({ navigation }) {
     }
   }, [refreshing]);
 
-  const search = useForm("");
-
-  const openErrorAlert = () => {
-    Alert.alert(
-      "Falha ao autenticar.",
-      "Necessário preencher todos os campos",
-      [{ text: "Ok", onPress: () => null }],
-      {
-        cancelable: true,
-      }
-    );
-  };
+  async function listAgendasByToken() {
+    const { url, options } = ListAgenda(token);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    if (json.erro) {
+      openListErrorAlert(json.erro);
+    } else {
+      setCalendars(json);
+    }
+  }
 
   async function handlePressSearch() {
     if (search.value) {
@@ -96,6 +76,28 @@ export function PesquisaE({ navigation }) {
     await AsyncStorage.setItem("agenda", JSON.stringify(idAgenda));
     navigation.navigate("AlterarAgenda", { name: "AlterarAgenda" });
   }
+
+  const openListErrorAlert = (error: string) => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      error,
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  const openErrorAlert = () => {
+    Alert.alert(
+      "Falha ao autenticar.",
+      "Necessário preencher todos os campos",
+      [{ text: "Ok", onPress: () => null }],
+      {
+        cancelable: true,
+      }
+    );
+  };
 
   return (
     <View style={styles.home}>

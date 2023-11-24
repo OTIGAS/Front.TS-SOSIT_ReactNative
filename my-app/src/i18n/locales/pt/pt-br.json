@@ -1,0 +1,46 @@
+{
+  "translation": {
+    "page sign in": "Entrar", 
+    "sign in i email": "E-mail", 
+    "sign in i password": "Senha", 
+    "sign in b submit": "Enviar", 
+    "sign in l registration": "Não tem uma conta? Cadastre-se", 
+    "sign in l forgot password": "Esqueci minha senha", 
+    "sign in v l failed to authenticate": "Falha ao autenticar", 
+    "sign in v l fields must be filled in": "Necessário preencher todos os campos", 
+    "sign in v l create your account": "Crie sua conta", 
+    "sign in v l choose the registration method": "Choose the registration method", 
+    "sign in v b customer": "Cliente", 
+    "sign in v b company": "Empresa", 
+    "sign in v l call to": "Ligue para: ", 
+    "sign in v l number": "(00) 0.0000-0000", 
+
+    "page register customer": "Cadastro", 
+    "register customer l customer": "Cliente", 
+    "register customer i name": "Nome", 
+    "register customer i email": "E-mail", 
+    "register customer i password": "Senha", 
+    "register customer l contact": "Contato", 
+    "register customer i contact email": "E-mail para contato", 
+    "register customer b register": "Cadastrar", 
+    "register customer b cancel": "Cancelar", 
+    "register customer v l failed to register": "Falha ao cadastrar", 
+    "register customer v l all fields must be filled in": "Necessário preencher todos os campos", 
+    "register customer v l ok": "Ok", 
+
+    "page register company": "Cadastro", 
+    "register company l company": "Empresa", 
+    "register company i name": "Nome", 
+    "register company i email": "E-mail", 
+    "register company i password": "Senha", 
+    "register company l contact": "Contato", 
+    "register company i name of contact person": "Nome da pessoa para Contato", 
+    "register company i contact email": "E-mail para contato", 
+
+    "register company b register": "Cadastrar", 
+    "register company b cancel": "Cancelar", 
+    "register company v l failed to register": "Falha ao cadastrar", 
+    "register company v l all fields must be filled in": "Necessário preencher todos os campos", 
+    "register company v l ok": "Ok" 
+  }
+}
