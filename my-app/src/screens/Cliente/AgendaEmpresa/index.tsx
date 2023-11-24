@@ -7,26 +7,35 @@ import { MyStyles } from "./styles";
 
 import { ListAgendaTimeByDate } from "../../../api";
 
-import useForm from "../../../hooks/useForm";
-
 import { Input } from "../../../components/Input";
 import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import { OpenAppointments } from "../../../components/OpenAppointments";
 import { BookedAppointments } from "../../../components/BookedAppointments";
 
+import CalendarPicker from 'react-native-calendar-picker';
+
 export function AgendaEmpresaC({ navigation }) {
   const styles = MyStyles();
 
-  const dataCompleta = useForm("");
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+
+  const onDateChange = (date) => {
+    const parsedDate = new Date(date);
+    const dia = parsedDate.toISOString().split("T")[0];
+    setSelectedStartDate(dia);
+  };
+
+  const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+  
   const [schedules, setSchedules] = useState([]);
 
   async function listAllAgendas() {
     const idAgenda = await AsyncStorage.getItem("agenda");
-    if (idAgenda) {
+    if (idAgenda && startDate) {
       const { url, options } = ListAgendaTimeByDate(
         idAgenda,
-        dataCompleta.value
+        startDate
       );
       const response = await fetch(url, options);
       const json = await response.json();
@@ -34,23 +43,18 @@ export function AgendaEmpresaC({ navigation }) {
         console.log(json.erro);
       } else {
         setSchedules(json.horarios);
+        console.log(json)
       }
     }
   }
 
+  
+
   return (
     <>
       <Header screen="Agenda" />
-      <View>
-        <Input
-          keyboardType="numeric"
-          placeholder="Data no formato '0000-00-00'"
-          placeholderTextColor="#B9B9B9"
-          value={dataCompleta.value}
-          error={dataCompleta.error}
-          onBlur={dataCompleta.onBlur}
-          onChange={dataCompleta.setValue}
-        />
+      <View style={styles.container}>
+        <CalendarPicker onDateChange={onDateChange} />
         <TouchableOpacity
           style={styles.button}
           onPress={() => listAllAgendas()}
@@ -60,16 +64,22 @@ export function AgendaEmpresaC({ navigation }) {
       </View>
       <ScrollView style={styles.mainContainer}>
         {schedules ? (
-          schedules.map((schedule) => {
-            if (schedule.disponivel) {
+          schedules.map((schedule) => (
+            schedule.disponivel ? (
               <OpenAppointments
                 key={"key"}
                 init={schedule.inicio}
                 end={schedule.fim}
-              />;
-            }
-            return null;
-          })
+                onPress={() => null}
+              />
+            ) : (
+              <BookedAppointments
+                key={"key"}
+                init={schedule.inicio}
+                end={schedule.fim}
+              />
+            )
+          ))
         ) : (
           <Text>Nada</Text>
         )}

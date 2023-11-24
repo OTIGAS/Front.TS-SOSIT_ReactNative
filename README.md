@@ -2,7 +2,7 @@ OBS 1: O Backend esta rodando no Render, na rota "https://api-sosit-3rwc.onrende
 
 OBS 2: Nas telas, no canto superior direito, possui um botão para trocar o idioma, ele tem um bug que você precisa clicar duas vezes para ele funcionar, e ele mostra a o idioma atual ao contrario (Tela de login, cadastro estão trocando o idioma).
 
-OBS 3: Nem todas as paginas estão funcionando, nas telas de empresa, tirando a tela de historio esta funcionando, e na tela de cliente, as telas de historico e agendar compromisso não estão funcionando.
+OBS 3: Nem todas as paginas estão funcionando, nas telas de empresa, tirando a tela de historio esta funcionando, e na tela de cliente, as telas de historico não esta funcionando.
 
 ## Pré-requisitos (Caso estaja rodando o Backend localmente)
 Antes de iniciar, certifique-se de que o backend do projeto esteja instalado e em execução em sua máquina. Caso ainda não o tenha feito, siga as instruções disponíveis em: Backend do Projeto SOSIT.

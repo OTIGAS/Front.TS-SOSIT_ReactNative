@@ -59,7 +59,6 @@ export function PesquisaC({ navigation }) {
       openListErrorAlert(json.erro);
     } else {
       setCalendars(json);
-      console.log(json);
     }
   }
 

@@ -9,6 +9,10 @@ export const MyStyles = () => {
   const defaultTheme = theme === "light" ? defaultThemeLight : defaultThemeDark;
 
   return StyleSheet.create({
+    container: {
+      width: "100%",
+      padding: 30,
+    },
     mainContainer: {
       flex: 1,
 

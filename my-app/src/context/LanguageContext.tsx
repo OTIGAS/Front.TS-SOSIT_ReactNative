@@ -14,7 +14,6 @@ export const LanguageContext = createContext<LanguageContextProps>(
 export function LanguageStorage({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     handleChange();
-    console.log(language)
   }, []);
 
   const [language, setTheme] = useState<string>("en-US");
@@ -23,7 +22,7 @@ export function LanguageStorage({ children }: { children: React.ReactNode }) {
     i18next.changeLanguage(language);
   }
 
-  async function handleLanguageChange() {
+  function handleLanguageChange() {
     setTheme(language === "en-US" ? "pt-BR" : "en-US");
     i18next.changeLanguage(language);
   }
