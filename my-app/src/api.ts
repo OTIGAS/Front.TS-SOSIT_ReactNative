@@ -1,4 +1,4 @@
-export const API_URL = "http://192.168.15.25:3333";
+export const API_URL = "https://api-sosit-3rwc.onrender.com";
 
 type IClienteCadastro = {
   nome: string;
