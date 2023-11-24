@@ -12,7 +12,7 @@ export function OpenAppointments(props: OpenAppointmentsProps) {
   const styles = MyStyles();
 
   return (
-    <TouchableOpacity style={styles.mainContainer}>
+    <TouchableOpacity style={styles.mainContainer} onPress={() => props.onPress()}>
       <Text style={styles.title}>Disponível</Text>
       <View style={styles.subContainer}>
         <Text>Inicio</Text>

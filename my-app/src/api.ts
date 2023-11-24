@@ -1,6 +1,5 @@
-export const API_URL = "https://api-sosit-3rwc.onrender.com";
-// export const API_URL = "http://10.5.17.9:3333";
-
+// export const API_URL = "https://api-sosit-3rwc.onrender.com";
+export const API_URL = "http://10.5.17.9:3333";
 
 type IClienteCadastro = {
   nome: string;
@@ -24,7 +23,7 @@ export function CreateCliente(body: IClienteCadastro) {
             nome: body.nome,
             email: body.email,
             senha: body.senha,
-          }, 
+          },
           contato: {
             nome_contato: body.nome,
             telefone: body.telefone,
@@ -310,7 +309,6 @@ export function UpdateDadosBancarios({
   };
 }
 
-
 type ICreateAgenda = {
   token: string;
   nome: string;
@@ -425,10 +423,42 @@ export function ListAgendaTimeByDate(idAgenda: string, dataCompleta: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          idAgenda,
-          dataCompleta,
+        idAgenda,
+        dataCompleta,
       }),
     },
   };
 }
 
+type ICreateCompromisso = {
+  token: string;
+  idAgenda: string;
+  data: string;
+  horario_inicio: string;
+  horario_fim: string;
+};
+
+export function CreateCompromisso({
+  token,
+  idAgenda,
+  data,
+  horario_inicio,
+  horario_fim,
+}: ICreateCompromisso) {
+  return {
+    url: API_URL + "/compromisso/cliente",
+    options: {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        idAgenda,
+        data,
+        horario_inicio,
+        horario_fim,
+      }),
+    },
+  };
+}
