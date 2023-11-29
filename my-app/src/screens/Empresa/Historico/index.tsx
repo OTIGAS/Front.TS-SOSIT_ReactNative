@@ -12,7 +12,7 @@ export function HistoricoE({ navigation }) {
     <View style={styles.historico}>
       <Header screen="Histórico" />
       <ScrollView>
-        <Commitment  usuario="Cliente 01" agenda="Agenda 03" dia="01/10/2023" horaInicio="11:15" horaFim="12:00"/>
+          
       </ScrollView>
       <TouchableOpacity style={styles.buttonCancel} disabled={true}>
         <Text>Demarcar</Text>
